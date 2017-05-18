@@ -1,10 +1,12 @@
-# Tietokantasovelluksen esittelysivu
+﻿# Verkkopankki 2.0
 
-Yleisiä linkkejä:
-
-* [Linkki sovellukseeni](https://www.cs.helsinki.fi)
-* [Linkki dokumentaatiooni](https://www.github.com)
+Tietokantasovellus-kurssilla toteutettu projekti
 
 ## Työn aihe
 
-Laita tähän aihekuvaus tai [linkki valmiiseen aiheeseen](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Pokemon-kanta.html) 
+Verkkopankkisovellus tarjoaa käyttäjilleen mahdollisuuden kirjautua järjestelmään, tarkastella tiliensä saldoja ja niiden tapahtumia, lähettää rahaa sekä muuttaa käyttäjätiliin liittyviä tietoja.
+
+## Yleisiä linkkejä:
+
+* [Linkki sovellukseeni](https://www.cs.helsinki.fi) (ei toiminnassa)
+* [Linkki dokumentaatiooni](https://github.com/cs-locx/Tsoha-Bootstrap/blob/master/doc/dokumentaatio.pdf)
