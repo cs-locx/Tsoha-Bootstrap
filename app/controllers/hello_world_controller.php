@@ -4,11 +4,16 @@
 
     public static function index(){
       // make-metodi renderöi app/views-kansiossa sijaitsevia tiedostoja
-   	  View::make('home.html');
+   	  echo 'Hei ydinlauma!';
     }
 
     public static function sandbox(){
       // Testaa koodiasi täällä
-      echo 'Hello World!';
+      View::make('helloworld.html');
+    }
+    
+     public static function testifunktio(){
+      // Testaa koodiasi täällä
+         echo 'Aika makeeta!';
     }
   }

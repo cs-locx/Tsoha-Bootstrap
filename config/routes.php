@@ -4,6 +4,10 @@
     HelloWorldController::index();
   });
 
-  $routes->get('/hiekkalaatikko', function() {
+  $routes->get('/test', function() {
     HelloWorldController::sandbox();
+  });
+  
+   $routes->get('/testi', function() {
+    HelloWorldController::testifunktio();
   });
