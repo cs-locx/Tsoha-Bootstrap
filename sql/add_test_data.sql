@@ -1,23 +1,26 @@
 INSERT INTO Kayttaja (tunnus, nimi, puhnro, email, salasana)     
 VALUES ('oskajoha', 'Oskari Johansson', '12345', 'keksitty.email@nan.com', 'banaani1');
 
-INSERT INTO Kayttaja (tunnus, nimi, puhnro, email, salasana)     
+INSERT INTO Kayttaja (tunnus, nimi, puhnro, email, salasana)
 VALUES ('mikko', 'Mikko Mallikas', '54321', 'toinen.email@nan.com', 'omena1');
 
-INSERT INTO Tili (saldo, nostoraja, kayttaja) 
-VALUES (2000, 100, 1);
+INSERT INTO Tili (saldo, nostoraja, kayttaja)
+VALUES (2000, 100, 'oskajoha');
 
 INSERT INTO Tili (saldo, nostoraja, kayttaja) 
-VALUES (1000, 100, 2);
+VALUES (1000, 100, 'mikko');
  
-INSERT INTO Tilitapahtuma (summa, tyyppi)   
-VALUES (-20, 'Debet');     
+INSERT INTO Tilitapahtuma (ajankohta, summa)   
+VALUES (NOW(), 20);
 
-INSERT INTO Tilitapahtuma (summa, tyyppi)   
-VALUES (20, 'Kredit');
+INSERT INTO Siirto (tili, tilitapahtuma, tyyppi)
+VALUES (1, 1, 'Debet');
 
-INSERT INTO Siirto (ajankohta, tili, tilitapahtuma)
-VALUES (timestamp(), 1, 1);
+INSERT INTO Siirto (tili, tilitapahtuma, tyyppi)
+VALUES (2, 1, 'Kredit');
 
-INSERT INTO Siirto (ajankohta, tili, tilitapahtuma)
-VALUES (timestamp(), 2, 2);
+UPDATE Tili
+SET saldo = saldo - 20 WHERE tilinumero = 1;
+
+UPDATE Tili
+SET saldo = saldo + 20 WHERE tilinumero = 2;
