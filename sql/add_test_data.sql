@@ -10,7 +10,7 @@ VALUES (2000, 100, 'oskajoha');
 INSERT INTO Tili (saldo, nostoraja, kayttaja) 
 VALUES (1000, 100, 'mikko');
  
-INSERT INTO Tilitapahtuma (ajankohta, summa)   
+INSERT INTO Tilitapahtuma (aika, summa)   
 VALUES (NOW(), 20);
 
 INSERT INTO Siirto (tili, tilitapahtuma, tyyppi)
