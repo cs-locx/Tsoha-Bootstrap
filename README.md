@@ -8,5 +8,5 @@ Verkkopankkisovellus tarjoaa käyttäjilleen mahdollisuuden kirjautua järjestel
 
 ## Yleisiä linkkejä:
 
-* [Linkki sovellukseeni](https://www.cs.helsinki.fi) (ei toiminnassa)
+* [Linkki sovellukseeni](http://oskajoha.users.cs.helsinki.fi/tsoha/)
 * [Linkki dokumentaatiooni](https://github.com/cs-locx/Tsoha-Bootstrap/blob/master/doc/dokumentaatio.pdf)
