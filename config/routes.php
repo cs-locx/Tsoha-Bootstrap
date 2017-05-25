@@ -4,6 +4,10 @@ $routes->get('/', function() {
     HelloWorldController::index();
 });
 
+$routes->get('/login', function() {
+    HelloWorldController::login();
+});
+
 $routes->get('/adminview', function() {
     HelloWorldController::adminview();
 });
