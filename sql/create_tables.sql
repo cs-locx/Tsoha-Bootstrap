@@ -21,7 +21,7 @@ CREATE TABLE Tilitapahtuma (
   tyyppi text NOT NULL,
   FOREIGN KEY (tili) REFERENCES Tili (tilinumero),
   FOREIGN KEY (siirto) REFERENCES Siirto (id),
-  PRIMARY KEY (tili, tilitapahtuma)
+  PRIMARY KEY (tili, siirto)
 );
 
 CREATE TABLE Siirto (

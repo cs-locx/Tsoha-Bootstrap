@@ -1,8 +1,8 @@
-INSERT INTO Kayttaja (tunnus, nimi, puhnro, email, salasana)     
-VALUES ('oskajoha', 'Oskari Johansson', '12345', 'keksitty.email@nan.com', 'banaani1');
+INSERT INTO Kayttaja (tunnus, nimi, puhnro, email, salasana, osoite)     
+VALUES ('oskajoha', 'Oskari Johansson', '12345', 'keksitty.email@nan.com', 'banaani1', 'Mysteeritie 123');
 
-INSERT INTO Kayttaja (tunnus, nimi, puhnro, email, salasana)
-VALUES ('mikko', 'Mikko Mallikas', '54321', 'toinen.email@nan.com', 'omena1');
+INSERT INTO Kayttaja (tunnus, nimi, puhnro, email, salasana, osoite)
+VALUES ('mikko', 'Mikko Mallikas', '54321', 'toinen.email@nan.com', 'omena1', 'Mysteeritie 125');
 
 INSERT INTO Tili (saldo, nostoraja, kayttaja)
 VALUES (2000, 100, 'oskajoha');
