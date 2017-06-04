@@ -22,10 +22,10 @@ class KayttajaController extends BaseController {
         'email' => $params['email']
         ));
         
-        Kint::dump($params);
+//        Kint::dump($params);
         
         $kayttaja->save();
-//        Redirect::to('/admin' , array('message' => 'Uusi käyttäjä rekisteröity!'));
+        Redirect::to('/admin' , array('message' => 'Uusi käyttäjä rekisteröity!'));
     }
 
 //    public static function show($tunnus) {
