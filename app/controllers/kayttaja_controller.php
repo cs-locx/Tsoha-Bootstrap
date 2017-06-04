@@ -25,7 +25,7 @@ class KayttajaController extends BaseController {
 //        Kint::dump($params);
         
         $kayttaja->save();
-        Redirect::to('/admin' , array('message' => 'Uusi käyttäjä rekisteröity!'));
+        Redirect::to('/admin' , array('message' => 'Käyttäjä ' . $kayttaja->tunnus . ' luotu onnistuneesti!'));
     }
 
 //    public static function show($tunnus) {
