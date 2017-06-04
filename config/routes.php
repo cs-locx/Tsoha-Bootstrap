@@ -8,13 +8,26 @@ $routes->get('/login', function() {
     HelloWorldController::login();
 });
 
-$routes->get('/adminview', function() {
-    HelloWorldController::adminview();
+$routes->get('/admin', function() {
+    KayttajaController::index();
 });
 
-$routes->get('/userview', function() {
+$routes->post('/admin', function() {
+    KayttajaController::store();
+});
+
+$routes->get('/admin/newuser', function() {
+    KayttajaController::newuser();
+});
+
+$routes->get('/user', function() {
     HelloWorldController::userview();
 });
+
+//$routes->get('/user/:tunnus', function($tunnus) {
+//    KayttajaController::show($tunnus);
+//    //täytyy toteuttaa metodi, joka hakee kaikki tilit yhdeltä käyttäjältä
+//});
 
 $routes->get('/tiliview', function() {
     HelloWorldController::tiliview();

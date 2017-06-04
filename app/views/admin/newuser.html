@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Luo uusi käyttäjä</h1>
+
+
+<form method="post" action="{{base_path}}/admin">
+    <div class="form-group">
+        <label>Käyttäjän nimi</label>
+        <input type="text" name="nimi" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Käyttäjätunnus</label>
+        <input type="text" name="tunnus" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Sähköposti</label>
+        <input type="text" name="email" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Puhelinnumero</label>
+        <input type="text" name="puhnro" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Kotiosoite</label>
+        <input type="text" name="osoite" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Salasana</label>
+        <input type="password" name="salasana" class="form-control">
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Tallenna</button>
+        <a class="btn btn-default" href="{{base_path}}/admin">Takaisin</a>
+    </div>
+</form>
+{% endblock %}

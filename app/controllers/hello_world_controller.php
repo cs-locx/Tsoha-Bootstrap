@@ -13,9 +13,6 @@ class HelloWorldController extends BaseController {
         View::make('suunnitelmat/login.html');
     }
 
-    public static function adminview() {
-        View::make('suunnitelmat/adminview.html');
-    }
 
     public static function userview() {
         View::make('suunnitelmat/userview.html');
@@ -36,7 +33,7 @@ class HelloWorldController extends BaseController {
     public static function sandbox() {
         // Testaa koodiasi täällä
         $osku = Kayttaja::find('oskajoha');
-        $kayttajat = Kayttaja::findAll();
+        $kayttajat = Kayttaja::all();
 
         Kint::dump($osku);
         Kint::dump($kayttajat);

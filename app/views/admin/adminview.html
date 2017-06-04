@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Admin etusivu</h1>
+
+<h3>Lista käyttäjistä</h3>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Käyttäjätunnus</th>
+            <th>Nimi</th>
+            <th>Puhelinnumero</th>
+            <th>Sähköposti</th>
+            <th>Katuosoite</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for kayttaja in kayttajat %}
+        <tr>
+            <td>{{kayttaja.tunnus}}</td>
+            <td>{{kayttaja.nimi}}</td>
+            <td>{{kayttaja.puhnro}}</td>
+            <td>{{kayttaja.email}}</td>
+            <td>{{kayttaja.osoite}}</td>
+            <th><a class="btn btn-default btn-sm" href="/tsoha/userview">Tarkastele profiilia</a></th>
+            <th><a class="btn btn-danger btn-sm" href="#">Poista käyttäjä</a></th>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a class="btn btn-primary" href="{{base_path}}/admin/newuser">Luo uusi käyttäjä</a>
+{% endblock %}

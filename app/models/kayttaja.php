@@ -46,4 +46,22 @@ class Kayttaja extends BaseModel {
         return null;
     }
 
+    public function save() {
+        $query = DB::connection()->prepare('INSERT INTO Kayttaja (tunnus, salasana, nimi, puhnro, osoite, email) VALUES (:tunnus, :salasana, :nimi, :puhnro, :osoite, :email)');
+
+        $query->execute(array(
+            'tunnus' => $this . tunnus,
+            'salasana' => $this . salasana,
+            'nimi' => $this . nimi,
+            'puhnro' => $this . puhnro,
+            'osoite' => $this . osoite,
+            'email' => $this . email
+        ));
+        
+        $row = $query->fetch();
+
+        Kint::trace();
+        Kint::dump($row);
+    }
+
 }
