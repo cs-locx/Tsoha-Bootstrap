@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Muokkaa omia tietoja</h1>
+
+<p>Tässä palvelussa ei pysty muuttamaan omaa käyttäjätunnustaan tai nimeään. Ole yhteydessä konttoriin, jos haluat tehdä näitä muutoksia.</p>
+
+<form>
+    <div class="form-group">
+        <label>Oma nimi</label>
+        <input type="text" name="stock" class="form-control" value="{{kayttaja.nimi}}" readonly>
+    </div>
+    <div class="form-group">
+        <label>Käyttäjätunnus</label>
+        <input type="text" name="stock" class="form-control" value="{{kayttaja.tunnus}}" readonly>
+    </div>
+    <div class="form-group">
+        <label>Sähköposti</label>
+        <input type="text" class="form-control" value="{{kayttaja.email}}">
+    </div>
+    <div class="form-group">
+        <label>Puhelinnumero</label>
+        <input type="text" class="form-control" value="{{kayttaja.puhnro}}">
+    </div>
+    <div class="form-group">
+        <label>Kotiosoite</label>
+        <input type="text" class="form-control" value="{{kayttaja.osoite}}">
+    </div>
+    <div class="form-group">
+        <label>Vanha salasana</label>
+        <input type="password" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Uusi salasana</label>
+        <input type="password" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Toista uusi salasana</label>
+        <input type="password" class="form-control">
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Tallenna</button>
+        <a href="{{base_path}}/user/{{kayttaja.tunnus}}/tiedot" class="btn btn-default">Takaisin</a>
+    </div>
+</form>
+{% endblock %}

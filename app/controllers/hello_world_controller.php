@@ -6,7 +6,7 @@ class HelloWorldController extends BaseController {
 
     public static function index() {
         // make-metodi renderöi app/views-kansiossa sijaitsevia tiedostoja
-        View::make('helloworld.html');
+        View::make('etusivu.html');
     }
 
     public static function login() {

@@ -10,7 +10,7 @@ CREATE TABLE Kayttaja (
 CREATE TABLE Tili ( 
   tilinumero SERIAL PRIMARY KEY, 
   saldo decimal(12,2) NOT NULL, 
-  nostoraja integer, 
+  siirtoraja integer, 
   kayttaja text NOT NULL, 
   FOREIGN KEY (kayttaja) REFERENCES Kayttaja (tunnus) 
 );

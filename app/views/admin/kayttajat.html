@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Admin etusivu</h1>
-
-<h3>Lista käyttäjistä</h3>
+<h1>Lista käyttäjistä</h1>
 
 <div class="alert alert-success">
   {{message}}
@@ -29,7 +27,7 @@
             <td>{{kayttaja.puhnro}}</td>
             <td>{{kayttaja.email}}</td>
             <td>{{kayttaja.osoite}}</td>
-            <th><a class="btn btn-default btn-sm" href="/tsoha/userview">Tarkastele profiilia</a></th>
+            <th><a class="btn btn-default btn-sm" href="{{base_path}}/user/{{kayttaja.tunnus}}">Tarkastele profiilia</a></th>
             <th><a class="btn btn-danger btn-sm" href="#">Poista käyttäjä</a></th>
         </tr>
         {% endfor %}
@@ -37,4 +35,5 @@
 </table>
 
 <a class="btn btn-primary" href="{{base_path}}/admin/newuser">Luo uusi käyttäjä</a>
+<a class="btn btn-default" href="{{base_path}}/admin">Palaa etusivulle</a>
 {% endblock %}
