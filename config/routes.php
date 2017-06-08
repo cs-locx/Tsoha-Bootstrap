@@ -25,7 +25,7 @@ $routes->get('/admin/newuser', function() {
 });
 
 $routes->get('/admin/tilit', function() {
-    KayttajaController::tilit();
+    TiliController::index();
 });
 
 $routes->get('/user', function() {
@@ -44,9 +44,9 @@ $routes->get('/user/:tunnus/muokkaa', function($tunnus) {
     KayttajaController::muokkaa($tunnus);
 });
 
-$routes->get('/user/:tunnus/uusitili', function($tunnus) {
-    KayttajaController::show($tunnus);
-});
+//$routes->get('/user/:tunnus/uusitili', function($tunnus) {
+//    KayttajaController::show($tunnus);
+//});
 
 //Staattisia näkymiä
 $routes->get('/tiliview', function() {

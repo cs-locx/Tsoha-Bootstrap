@@ -11,11 +11,6 @@ class KayttajaController extends BaseController {
         View::make('admin/kayttajat.html', array('kayttajat' => $kayttajat));
     }
 
-    public static function tilit() {
-        $tilit = Tili::all();
-        View::make('admin/tilit.html', array('tilit' => $tilit));
-    }
-
     public static function newuser() {
         View::make('admin/newuser.html');
     }
