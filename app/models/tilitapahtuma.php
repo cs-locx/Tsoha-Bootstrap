@@ -22,5 +22,10 @@ class Tilitapahtuma extends BaseModel {
         }
         return $tilitapahtumat;
     }
+    
+    public function save() {
+        
+        
+    }
 }
 

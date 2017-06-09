@@ -13,7 +13,7 @@ $routes->get('/admin', function() {
 });
 
 $routes->get('/admin/kayttajat', function() {
-    KayttajaController::users();
+    KayttajaController::kayttajat();
 });
 
 $routes->post('/admin/kayttajat', function() {
@@ -21,11 +21,19 @@ $routes->post('/admin/kayttajat', function() {
 });
 
 $routes->get('/admin/newuser', function() {
-    KayttajaController::newuser();
+    KayttajaController::uusikayttaja();
 });
 
 $routes->get('/admin/tilit', function() {
-    TiliController::index();
+    TiliController::tilit();
+});
+
+$routes->post('/admin/tilit', function() {
+    TiliController::store();
+});
+
+$routes->get('/admin/uusitili', function() {
+    TiliController::uusitili();
 });
 
 $routes->get('/user', function() {

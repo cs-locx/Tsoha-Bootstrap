@@ -2,8 +2,14 @@
 {% block content %}
 <h1>Admin etusivu</h1>
 
+{% if message is not null %}
+<div class="alert alert-success">
+    {{message}}
+</div>
+{% endif %}
+
 <div>
     <a class="btn btn-primary" href="{{base_path}}/admin/kayttajat">Lista käyttäjistä</a>
-    <a class="btn btn-primary" href="{{base_path}}/admin/tilit">Lista tileistä</a>
+    <a class="btn btn-primary" href="{{base_path}}/admin/tilit">Lista pankkitileistä</a>
 </div>
 {% endblock %}

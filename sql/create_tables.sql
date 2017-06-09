@@ -4,7 +4,8 @@ CREATE TABLE Kayttaja (
   puhnro text, 
   email text, 
   osoite text,
-  salasana text NOT NULL 
+  salasana text NOT NULL, 
+  yllapitaja boolean NOT NULL
 );
  
 CREATE TABLE Tili ( 
@@ -15,6 +16,12 @@ CREATE TABLE Tili (
   FOREIGN KEY (kayttaja) REFERENCES Kayttaja (tunnus) 
 );
  
+CREATE TABLE Siirto (
+  id SERIAL PRIMARY KEY,
+  aika timestamp NOT NULL,  
+  summa integer NOT NULL
+);
+
 CREATE TABLE Tilitapahtuma ( 
   tili integer NOT NULL,
   siirto integer NOT NULL,
@@ -24,8 +31,3 @@ CREATE TABLE Tilitapahtuma (
   PRIMARY KEY (tili, siirto)
 );
 
-CREATE TABLE Siirto (
-  id SERIAL PRIMARY KEY,
-  aika timestamp NOT NULL,  
-  summa integer NOT NULL
-);

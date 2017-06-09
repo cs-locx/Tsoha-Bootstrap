@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
+
+<h1>Lista pankkitileistä</h1>
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>Tilinumero</th>
-            <th>Käyttäjätunnus</th>
+            <th>Tilin omistaja</th>
             <th>Saldo</th>
             <th>Siirtoraja</th>
+            <th></th>
             <th></th>
         </tr>
     </thead>
@@ -18,10 +21,12 @@
             <td>{{tili.kayttaja}}</td>
             <td>{{tili.saldo}}</td>
             <td>{{tili.siirtoraja}}</td>
-            <th><a class="btn btn-danger btn-sm" href="#">Poista käyttäjä</a></th>
+            <th><a class="btn btn-default btn-sm" href="#">Tarkastele tilitapahtumia</a></th>
+            <th><a class="btn btn-danger btn-sm" href="#">Poista tili</a></th>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+<a class="btn btn-primary" href="{{base_path}}/admin/uusitili">Luo uusi tili</a>
 <a class="btn btn-default" href="{{base_path}}/admin">Palaa etusivulle</a>
 {% endblock %}

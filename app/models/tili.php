@@ -61,4 +61,18 @@ class Tili extends BaseModel {
         return $tilit;
     }
 
+    public function save() {
+        $query = DB::connection()->prepare('INSERT INTO Tili (saldo, siirtoraja, kayttaja) VALUES (:saldo, :siirtoraja, :kayttaja) RETURNING tilinumero');
+        $query->execute(array('saldo' => $this->saldo, 'siirtoraja' => $this->siirtoraja, 'kayttaja' => $this->kayttaja));
+        $row = $query->fetch();
+
+//        Kint::trace();
+//        Kint::dump($row);
+
+        $this->tilinumero = $row['tilinumero'];
+        
+        
+        //Kutsutaan Siirto-luokan metodia save() lisätäksemme alkusaldon tilitapahtumiin
+    }
+
 }

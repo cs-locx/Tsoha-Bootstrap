@@ -1,22 +1,25 @@
-INSERT INTO Kayttaja (tunnus, nimi, puhnro, email, salasana, osoite)     
-VALUES ('oskajoha', 'Oskari Johansson', '12345', 'keksitty.email@nan.com', 'banaani1', 'Mysteeritie 123');
+INSERT INTO Kayttaja (tunnus, nimi, salasana, yllapitaja)     
+VALUES ('admin', 'admin', 'admin', true);
 
-INSERT INTO Kayttaja (tunnus, nimi, puhnro, email, salasana, osoite)
-VALUES ('mikko', 'Mikko Mallikas', '54321', 'toinen.email@nan.com', 'omena1', 'Mysteeritie 125');
+INSERT INTO Kayttaja (tunnus, nimi, puhnro, email, salasana, osoite, yllapitaja)     
+VALUES ('oskajoha', 'Oskari Johansson', '12345', 'keksitty.email@nan.com', 'banaani1', 'Mysteeritie 123', false);
 
-INSERT INTO Tili (saldo, nostoraja, kayttaja)
+INSERT INTO Kayttaja (tunnus, nimi, puhnro, email, salasana, osoite, yllapitaja)
+VALUES ('mikko', 'Mikko Mallikas', '54321', 'toinen.email@nan.com', 'omena1', 'Mysteeritie 125', false);
+
+INSERT INTO Tili (saldo, siirtoraja, kayttaja)
 VALUES (2000, 100, 'oskajoha');
 
-INSERT INTO Tili (saldo, nostoraja, kayttaja) 
+INSERT INTO Tili (saldo, siirtoraja, kayttaja) 
 VALUES (1000, 100, 'mikko');
  
-INSERT INTO Tilitapahtuma (aika, summa)   
+INSERT INTO Siirto (aika, summa)   
 VALUES (NOW(), 20);
 
-INSERT INTO Siirto (tili, tilitapahtuma, tyyppi)
+INSERT INTO Tilitapahtuma (tili, siirto, tyyppi)
 VALUES (1, 1, 'Debet');
 
-INSERT INTO Siirto (tili, tilitapahtuma, tyyppi)
+INSERT INTO Tilitapahtuma (tili, siirto, tyyppi)
 VALUES (2, 1, 'Kredit');
 
 UPDATE Tili

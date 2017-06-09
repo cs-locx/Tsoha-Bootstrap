@@ -13,7 +13,6 @@ class HelloWorldController extends BaseController {
         View::make('suunnitelmat/login.html');
     }
 
-
     public static function userview() {
         View::make('suunnitelmat/userview.html');
     }
@@ -32,11 +31,19 @@ class HelloWorldController extends BaseController {
 
     public static function sandbox() {
         // Testaa koodiasi täällä
-        $osku = Kayttaja::find('oskajoha');
-        $kayttajat = Kayttaja::all();
+        $kayttaja = new Kayttaja(array(
+            'tunnus' => '',
+            'salasana' => 'bani1',
+            'nimi' => 'nimi',
+            'puhnro' => 'sad',
+            'osoite' => 'dsa',
+            'email' => 'afsas',
+            'yllapitaja' => false
+        ));
+        
+        $errors = $kayttaja->errors();
 
-        Kint::dump($osku);
-        Kint::dump($kayttajat);
+        Kint::dump($errors);
     }
 
     public static function ydinlauma() {

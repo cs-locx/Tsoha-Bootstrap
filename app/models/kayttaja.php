@@ -2,10 +2,11 @@
 
 class Kayttaja extends BaseModel {
 
-    public $tunnus, $salasana, $nimi, $puhnro, $osoite, $email;
+    public $tunnus, $salasana, $nimi, $puhnro, $osoite, $email, $yllapitaja;
 
     public function __construct($attributes) {
         parent::__construct($attributes);
+        $this->validators = array('validate_tunnus', 'validate_salasana');
     }
 
     public static function all() {
@@ -21,7 +22,8 @@ class Kayttaja extends BaseModel {
                 'nimi' => $row['nimi'],
                 'puhnro' => $row['puhnro'],
                 'osoite' => $row['osoite'],
-                'email' => $row['email']
+                'email' => $row['email'],
+                'yllapitaja' => $row['yllapitaja']
             ));
         }
         return $kayttajat;
@@ -39,7 +41,8 @@ class Kayttaja extends BaseModel {
                 'nimi' => $row['nimi'],
                 'puhnro' => $row['puhnro'],
                 'osoite' => $row['osoite'],
-                'email' => $row['email']
+                'email' => $row['email'],
+                'yllapitaja' => $row['yllapitaja']
             ));
             return $kayttaja;
         }
@@ -47,11 +50,9 @@ class Kayttaja extends BaseModel {
     }
 
     public function save() {
-        $query = DB::connection()->prepare('INSERT INTO Kayttaja (tunnus, salasana, nimi, puhnro, osoite, email) VALUES (:tunnus, :salasana, :nimi, :puhnro, :osoite, :email)');
+        $query = DB::connection()->prepare('INSERT INTO Kayttaja (tunnus, salasana, nimi, puhnro, osoite, email, yllapitaja) VALUES (:tunnus, :salasana, :nimi, :puhnro, :osoite, :email, false)');
 
         $query->execute(array('tunnus' => $this->tunnus, 'salasana' => $this->salasana, 'nimi' => $this->nimi, 'puhnro' => $this->puhnro, 'osoite' => $this->osoite, 'email' => $this->email));
-
-//        $row = $query->fetch();
 //
 //        Kint::trace();
 //        Kint::dump($row);
@@ -62,8 +63,22 @@ class Kayttaja extends BaseModel {
         if ($this->tunnus == '' || $this->tunnus == null) {
             $errors[] = 'Käyttäjätunnus ei saa olla tyhjä!';
         }
-        if (strlen($this->tunnus) < 5) {
-            $errors[] = 'Käyttäjätunnus on oltava vähintään 5 merkkiä pitkä!';
+        if (strlen($this->tunnus) < 3) {
+            $errors[] = 'Käyttäjätunnus on oltava vähintään 3 merkkiä pitkä.';
+        }
+        return $errors;
+    }
+
+    public function validate_salasana() {
+        $errors = array();
+        if ($this->salasana == '' || $this->salasana == null) {
+            $errors[] = 'Salasana ei saa olla tyhjä!';
+        }
+        if (strlen($this->salasana) < 6) {
+            $errors[] = 'Salasana on oltava vähintään 6 merkkiä pitkä.';
+        }
+        if (preg_match('~[0-9]~', $this->salasana) == false) {
+            $errors[] = 'Salasanassa on oltava vähintään yksi numero.';
         }
         return $errors;
     }

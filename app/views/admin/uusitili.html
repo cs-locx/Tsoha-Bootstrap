@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Luo uusi tili</h1>
+
+
+<form method="post" action="{{base_path}}/admin/tilit">
+    <div class="form-group">
+        <label>Tilin omistaja</label>
+        <input type="text" name="kayttaja" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Alkusaldo</label>
+        <input type="text" name="saldo" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Siirtoraja</label>
+        <input type="text" name="siirtoraja" class="form-control">
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Tallenna</button>
+        <a class="btn btn-default" href="{{base_path}}/admin/tilit">Takaisin</a>
+    </div>
+</form>
+{% endblock %}

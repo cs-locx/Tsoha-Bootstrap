@@ -9,23 +9,21 @@
         <tr>
             <th>Tilinumero</th>
             <th>Saldo</th>
+            <th>Siirtoraja</th>
             <th></th>
         </tr>
     </thead>
-
-<!--    Täytyy toteuttaa yhden käyttäjän kaikki tilit hakeva logiikka.
     <tbody>
-        <tr>
-            <td>0000 0001</td>
-            <td>2030,00€</td>
-            <th><a class="btn btn-default btn-sm" href="/tsoha/tiliview">Tarkastele tilitapahtumia</a></th>
-        </tr>
-        <tr>
-            <td>0000 0002</td>
-            <td>50,00€</td>
+        {% for tili in tilit %}
+        <tr><tr>
+            <td>{{tili.tilinumero}}</td>
+            <td>{{tili.saldo}}</td>
+            <td>{{tili.siirtoraja}}</td>
             <th><a class="btn btn-default btn-sm" href="#">Tarkastele tilitapahtumia</a></th>
         </tr>
-    </tbody>-->
+        {% endfor %}
+
+    </tbody>
 </table>
 
 <p>
