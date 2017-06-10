@@ -28,6 +28,10 @@ $routes->get('/admin/poista/:tunnus', function($tunnus) {
     KayttajaController::poisto($tunnus);
 });
 
+$routes->post('/admin/poista', function() {
+    KayttajaController::poista();
+});
+
 $routes->get('/admin/tilit', function() {
     TiliController::tilit();
 });

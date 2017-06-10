@@ -79,11 +79,13 @@ class KayttajaController extends BaseController {
 
     public static function poisto($tunnus) {
         $kayttaja = Kayttaja::find($tunnus);
-        View::make('admin/poisto.html', array ('kayttaja' => $kayttaja));
+        View::make('admin/poisto.html', array('kayttaja' => $kayttaja));
     }
 
-        public static function poista($tunnus) {
-        $kayttaja = new Kayttaja(array('tunnus' => $tunnus));
+    public static function poista() {
+        $params = $_POST;
+        
+        $kayttaja = new Kayttaja(array('tunnus' => $params['tunnus']));
         $kayttaja->poista();
 
         Redirect::to('/admin', array('message' => 'Käyttäjän ' . $tunnus . ' poisto onnistui!'));
