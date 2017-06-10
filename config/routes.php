@@ -20,8 +20,12 @@ $routes->post('/admin/kayttajat', function() {
     KayttajaController::store();
 });
 
-$routes->get('/admin/newuser', function() {
+$routes->get('/admin/uusikayttaja', function() {
     KayttajaController::uusikayttaja();
+});
+
+$routes->get('/admin/poista/:tunnus', function($tunnus) {
+    KayttajaController::poisto($tunnus);
 });
 
 $routes->get('/admin/tilit', function() {
@@ -36,10 +40,6 @@ $routes->get('/admin/uusitili', function() {
     TiliController::uusitili();
 });
 
-$routes->get('/user', function() {
-    HelloWorldController::userview();
-});
-
 $routes->get('/user/:tunnus', function($tunnus) {
     KayttajaController::show($tunnus);
 });
@@ -49,14 +49,23 @@ $routes->get('/user/:tunnus/tiedot', function($tunnus) {
 });
 
 $routes->get('/user/:tunnus/muokkaa', function($tunnus) {
-    KayttajaController::muokkaa($tunnus);
+    KayttajaController::muokkaus($tunnus);
 });
 
-//$routes->get('/user/:tunnus/uusitili', function($tunnus) {
-//    KayttajaController::show($tunnus);
-//});
+$routes->post('/user/:tunnus/muokkaa', function($tunnus) {
+    KayttajaController::paivita($tunnus);
+});
+
+$routes->post('/user/poista', function($tunnus) {
+    KayttajaController::paivita($tunnus);
+});
+
 
 //Staattisia näkymiä
+$routes->get('/user', function() {
+    HelloWorldController::userview();
+});
+
 $routes->get('/tiliview', function() {
     HelloWorldController::tiliview();
 });

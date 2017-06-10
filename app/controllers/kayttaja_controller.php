@@ -28,11 +28,11 @@ class KayttajaController extends BaseController {
         $kayttaja = new Kayttaja($attributes);
         $errors = $kayttaja->errors();
 
-        if (count($errors) == 0) {
-            $kayttaja->save();
-            Redirect::to('/admin', array('message' => 'Käyttäjä ' . $kayttaja->tunnus . ' luotu onnistuneesti!'));
+        if (count($errors) > 0) {
+            View::make('admin/newuser.html', array('errors' => $errors, 'attributes' => $attributes));
         } else {
-            View::make('/admin/newuser.html', array('errors' => $errors, 'attributes' => $attributes));
+            $kayttaja->save();
+            Redirect::to('/admin', array('message' => 'Käyttäjän ' . $kayttaja->tunnus . ' luonti onnistui!'));
         }
 //        Kint::dump($params);
     }
@@ -49,9 +49,44 @@ class KayttajaController extends BaseController {
         View::make('kayttaja/tiedot.html', array('kayttaja' => $kayttaja));
     }
 
-    public static function muokkaa($tunnus) {
+    public static function muokkaus($tunnus) {
         $kayttaja = Kayttaja::find($tunnus);
         View::make('kayttaja/muokkaa.html', array('kayttaja' => $kayttaja));
+    }
+
+    public static function paivita($tunnus) {
+        $params = $_POST;
+
+        $attributes = array(
+            'tunnus' => $params['tunnus'],
+            'salasana' => $params['salasana'],
+            'nimi' => $params['nimi'],
+            'puhnro' => $params['puhnro'],
+            'osoite' => $params['osoite'],
+            'email' => $params['email']
+        );
+
+        $kayttaja = new Kayttaja($attributes);
+        $errors = $kayttaja->errors();
+
+        if (count($errors) > 0) {
+            View::make('kayttaja/muokkaa.html', array('errors' => $errors, 'attributes' => $attributes));
+        } else {
+            $kayttaja->paivita();
+            Redirect::to('kayttaja/' . $tunnus . '/tiedot', array('message' => 'Tietojen muokkaus onnistui!'));
+        }
+    }
+
+    public static function poisto($tunnus) {
+        $kayttaja = Kayttaja::find($tunnus);
+        View::make('admin/poisto.html', array ('kayttaja' => $kayttaja));
+    }
+
+        public static function poista($tunnus) {
+        $kayttaja = new Kayttaja(array('tunnus' => $tunnus));
+        $kayttaja->poista();
+
+        Redirect::to('/admin', array('message' => 'Käyttäjän ' . $tunnus . ' poisto onnistui!'));
     }
 
 }

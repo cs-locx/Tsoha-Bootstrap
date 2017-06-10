@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+{% import "macros/forms.html" as forms %}
+
+<h1>Oletko varma, että haluat poistaa käyttäjän {{kayttaja.tunnus}}?</h1>
+
+{{forms.destroy_button()}}
+<a href="{{base_path}}/admin/kayttajat" class="btn btn-default">Takaisin</a>
+
+{% endblock %}

@@ -50,12 +50,28 @@ class Kayttaja extends BaseModel {
     }
 
     public function save() {
-        $query = DB::connection()->prepare('INSERT INTO Kayttaja (tunnus, salasana, nimi, puhnro, osoite, email, yllapitaja) VALUES (:tunnus, :salasana, :nimi, :puhnro, :osoite, :email, false)');
+        $query = DB::connection()->prepare('INSERT INTO Kayttaja (tunnus, salasana, nimi, puhnro, osoite, email, yllapitaja) '
+                . 'VALUES (:tunnus, :salasana, :nimi, :puhnro, :osoite, :email, false)');
 
         $query->execute(array('tunnus' => $this->tunnus, 'salasana' => $this->salasana, 'nimi' => $this->nimi, 'puhnro' => $this->puhnro, 'osoite' => $this->osoite, 'email' => $this->email));
 //
 //        Kint::trace();
 //        Kint::dump($row);
+    }
+
+    public function paivita() {
+        $query = DB::connection()->prepare('UPDATE Kayttaja '
+                . 'SET salasana = :salasana, nimi = :nimi, puhnro = :puhnro, osoite = :osoite, email = :email '
+                . 'WHERE tunnus = :tunnus');
+
+        $query->execute(array('tunnus' => $this->tunnus, 'salasana' => $this->salasana, 'nimi' => $this->nimi, 'puhnro' => $this->puhnro, 'osoite' => $this->osoite, 'email' => $this->email));
+    }
+
+    public function poista() {
+        $query = DB::connection()->prepare('DELETE FROM Kayttaja '
+                . 'WHERE tunnus = :tunnus');
+
+        $query->execute(array('tunnus' => $this->tunnus));
     }
 
     public function validate_tunnus() {
