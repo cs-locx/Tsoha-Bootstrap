@@ -56,7 +56,7 @@ $routes->get('/user/:tunnus/muokkaa', function($tunnus) {
     KayttajaController::muokkaus($tunnus);
 });
 
-$routes->post('/user/:tunnus/muokkaa', function($tunnus) {
+$routes->post('/user/:tunnus/tiedot', function($tunnus) {
     KayttajaController::paivita($tunnus);
 });
 
