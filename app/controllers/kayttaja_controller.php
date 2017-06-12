@@ -6,6 +6,25 @@ class KayttajaController extends BaseController {
         View::make('admin/index.html');
     }
 
+    public static function login() {
+        View::make('login.html');
+    }
+
+    public static function kirjaudu() {
+        $params = $_POST;
+
+        $kayttaja = Kayttaja::ta ($params['tunnus'], $params['salasana']);
+
+        
+        if (!$kayttaja) {
+            View::make('user/login.html', array('error' => 'Väärä käyttäjätunnus tai salasana!', 'username' => $params['username']));
+        } else {
+            $_SESSION['user'] = $kayttaja->id;
+
+            Redirect::to('/user/' . $kayttaja->tunnus, array('message' => 'Tervetuloa takaisin ' . $kayttaja->nimi . '!'));
+        }
+    }
+
     public static function kayttajat() {
         $kayttajat = Kayttaja::all();
         View::make('admin/kayttajat.html', array('kayttajat' => $kayttajat));
@@ -41,7 +60,6 @@ class KayttajaController extends BaseController {
         $kayttaja = Kayttaja::find($tunnus);
         $tilit = Tili::findfor($tunnus);
         View::make('kayttaja/index.html', array('kayttaja' => $kayttaja, 'tilit' => $tilit));
-        //täytyy ensin toteuttaa metodi, joka hakee kaikki tilit yhdeltä käyttäjältä
     }
 
     public static function tiedot($tunnus) {
@@ -84,7 +102,7 @@ class KayttajaController extends BaseController {
 
     public static function poista() {
         $params = $_POST;
-        
+
         $kayttaja = new Kayttaja(array('tunnus' => $params['tunnus']));
         $kayttaja->poista();
 

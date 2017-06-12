@@ -5,7 +5,11 @@ $routes->get('/', function() {
 });
 
 $routes->get('/login', function() {
-    HelloWorldController::login();
+    KayttajaController::login();
+});
+
+$routes->post('/login', function() {
+    KayttajaController::kirjaudu();
 });
 
 $routes->get('/admin', function() {

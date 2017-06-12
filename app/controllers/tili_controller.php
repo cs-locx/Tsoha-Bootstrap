@@ -11,6 +11,8 @@ class TiliController extends BaseController {
         View::make('admin/uusitili.html');
     }
 
+    
+    
     public static function store() {
         $params = $_POST;
         $tili = new Tili(array(
