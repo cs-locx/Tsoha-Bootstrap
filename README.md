@@ -12,10 +12,12 @@ kirjautumaan pääsee seuraavilla tunnuksilla:
 
 ### Normaali käyttäjä
 Käyttäjätunnus: oskajoha
+
 Salasana: banaani1
 
 ### Ylläpitäjä (tulossa myöhemmin)
 Käyttäjätunnus: admin
+
 Salasana: admin
 
 Tätä ennen ylläpitäjän näkymään on linkki sovelluksen etusivulla.
