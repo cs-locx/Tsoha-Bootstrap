@@ -13,13 +13,12 @@ class KayttajaController extends BaseController {
     public static function kirjaudu() {
         $params = $_POST;
 
-        $kayttaja = Kayttaja::ta ($params['tunnus'], $params['salasana']);
-
+        $kayttaja = Kayttaja::tarkista($params['tunnus'], $params['salasana']);
         
         if (!$kayttaja) {
             View::make('user/login.html', array('error' => 'Väärä käyttäjätunnus tai salasana!', 'username' => $params['username']));
         } else {
-            $_SESSION['user'] = $kayttaja->id;
+            $_SESSION['kayttaja'] = $kayttaja->tunnus;
 
             Redirect::to('/user/' . $kayttaja->tunnus, array('message' => 'Tervetuloa takaisin ' . $kayttaja->nimi . '!'));
         }

@@ -99,7 +99,7 @@ class Kayttaja extends BaseModel {
         return $errors;
     }
 
-    public function tarkista($tunnus, $salasana) {
+    public static function tarkista($tunnus, $salasana) {
         $query = DB::connection()->prepare('SElECT * FROM Kayttaja WHERE tunnus = :tunnus AND salasana = :salasana LIMIT 1');
         $query->execute(array('tunnus' => $tunnus, 'salasana' => $salasana));
         $row = $query->fetch();
