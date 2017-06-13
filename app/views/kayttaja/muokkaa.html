@@ -7,27 +7,27 @@
 <form method="post" action="{{base_path}}/user/{{kayttaja.tunnus}}/tiedot">
     <div class="form-group">
         <label class="control-label">Käyttäjän nimi</label>
-        <input type="text" name="nimi" class="form-control" value="{{attributes.nimi}}" readonly>
+        <input type="text" name="nimi" class="form-control" value="{{kayttaja.nimi}}" readonly>
     </div>
     <div class="form-group">
         <label class="control-label">Käyttäjätunnus</label>
-        <input name="tunnus" class="form-control" type="text" value="{{attributes.tunnus}}" readonly>
+        <input name="tunnus" class="form-control" type="text" value="{{kayttaja.tunnus}}" readonly>
     </div>
     <div class="form-group">
         <label class="control-label">Sähköposti</label>
-        <input type="text" name="email" class="form-control" value="{{attributes.email}}">
+        <input type="text" name="email" class="form-control" value="{{kayttaja.email}}">
     </div>
     <div class="form-group">
         <label class="control-label">Puhelinnumero</label>
-        <input type="text" name="puhnro" class="form-control" value="{{attributes.puhnro}}">
+        <input type="text" name="puhnro" class="form-control" value="{{kayttaja.puhnro}}">
     </div>
     <div class="form-group">
         <label class="control-label">Kotiosoite</label>
-        <input type="text" name="osoite" class="form-control" value="{{attributes.osoite}}">
+        <input type="text" name="osoite" class="form-control" value="{{kayttaja.osoite}}">
     </div>
     <div class="form-group">
         <label class="control-label">Salasana</label>
-        <input type="password" name="salasana" class="form-control" value="{{attributes.salasana}}">
+        <input type="password" name="salasana" class="form-control" value="">
     </div>
     <div class="form-group">
         <label class="control-label">Uusi salasana</label>

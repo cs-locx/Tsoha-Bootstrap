@@ -1,5 +1,5 @@
-{% macro destroy_button() %}
-  <form method="post" action="{{base_path}}/admin/poista" style="display: inline-block;">
+{% macro destroy_button(polku) %}
+  <form method="post" action="{{polku}}" style="display: inline-block;">
     <button type="submit" class="btn btn-danger">Poista</button>
   </form>
 {% endmacro %}

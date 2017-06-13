@@ -11,16 +11,14 @@ Verkkopankkisovellus tarjoaa käyttäjilleen mahdollisuuden kirjautua järjestel
 kirjautumaan pääsee seuraavilla tunnuksilla:
 
 ### Normaali käyttäjä
-Käyttäjätunnus: oskajoha
+Käyttäjätunnus: testi
 
-Salasana: banaani1
+Salasana: testi1
 
-### Ylläpitäjä (tulossa myöhemmin)
+### Ylläpitäjä
 Käyttäjätunnus: admin
 
 Salasana: admin
-
-Tätä ennen ylläpitäjän näkymään on linkki sovelluksen etusivulla.
 
 ## Yleisiä linkkejä:
 

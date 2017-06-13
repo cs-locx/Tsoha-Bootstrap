@@ -2,6 +2,12 @@
 {% block content %}
 <h1>Käyttäjän {{kayttaja.nimi}} etusivu</h1>
 
+{% if message is not null %}
+<div class="alert alert-info">
+    {{message}}
+</div>
+{% endif %}
+
 <h3>Lista tileistä</h3>
 
 <table class="table table-striped table-bordered">
@@ -28,6 +34,6 @@
 
 <p>
     <a class="btn btn-primary" href="{{base_path}}/user/{{kayttaja.tunnus}}/tiedot">Omat tiedot</a>
-    <a class="btn btn-primary" href="{{base_path}}/user/{{kayttaja.tunnus}}/uusitili">(admin) Lisää tili</a>
+    <a class="btn btn-primary" href="#">(admin) Lisää tili</a>
 </p>
 {% endblock %}

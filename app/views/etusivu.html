@@ -1,20 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Verkkopankki 2.0</h1>
 
-        {% extends "base.html" %}
-        {% block content %}
-        <h1>Verkkopankki 2.0</h1>
-        
-        <p>Tervetuloa verkkopankkisovellukseen! Alta löydät linkkejä sovelluksen eri osiin niin kauan, kun ne eivät ole loogisesti linkitetty yhteen. Toivottavasti viihdyt!</p>
+<p>
+    Tervetuloa verkkopankkisovellukseen! <br>
+    Yläkulmasta pääset kirjautumisikkunaan. Tässä normaalin käyttäjän sekä ylläpitäjän tunnukset, jolla voi kirjautua
+</p>
 
-        
-        <ul>
-            <li><a href="{{base_path}}/login">Linkki kirjautumisnäkymään</a></li>
-            <li><a href="{{base_path}}/admin">Linkki adminin etusivulle</a></li>            
-        </ul>
-        
-        <p>
-            Adminin etusivulta pääsee uuden käyttäjän luomisnäkymään sekä tarkastelemaan käyttäjän profiilia. 
-            Käyttäjän poistaminen ei vielä toimi. Profiilista pääsee tarkastelemaan tilin tilitapahtumia sekä omia tietojaan. 
-            Omista tiedoista pääsee tietojen muokkausnäkymään. Sivut ovat staattisia lukuunottamatta adminin etusivua.
-        
-        </p>
-        {% endblock %}
+<h3>Normaali käyttäjä</h3>
+<ul>
+    <li><b>Käyttäjätunnus:</b> testi</li>
+    <li><b>Salasana:</b> testi1</li>            
+</ul>
+
+<h3>Ylläpitäjä</h3>
+<ul>
+    <li><b>Käyttäjätunnus:</b> admin</li>
+    <li><b>Salasana:</b> admin</li>            
+</ul>
+
+<p>Toivottavasti viihdyt!</p>
+
+{% endblock %}

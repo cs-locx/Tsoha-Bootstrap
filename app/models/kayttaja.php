@@ -105,7 +105,7 @@ class Kayttaja extends BaseModel {
         $row = $query->fetch();
 
         if ($row) {
-            return $this->find($tunnus);
+            return Kayttaja::find($tunnus);
         } else {
             return null;
         }

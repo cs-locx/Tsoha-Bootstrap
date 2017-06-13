@@ -12,6 +12,10 @@ $routes->post('/login', function() {
     KayttajaController::kirjaudu();
 });
 
+$routes->post('/logout', function() {
+    KayttajaController::logout();
+});
+
 $routes->get('/admin', function() {
     KayttajaController::index();
 });
@@ -32,8 +36,8 @@ $routes->get('/admin/poista/:tunnus', function($tunnus) {
     KayttajaController::poisto($tunnus);
 });
 
-$routes->post('/admin/poista', function() {
-    KayttajaController::poista();
+$routes->post('/admin/poista/:tunnus', function($tunnus) {
+    KayttajaController::poista($tunnus);
 });
 
 $routes->get('/admin/tilit', function() {
@@ -68,24 +72,7 @@ $routes->post('/user/poista', function($tunnus) {
     KayttajaController::paivita($tunnus);
 });
 
-
-//Staattisia näkymiä
-$routes->get('/user', function() {
-    HelloWorldController::userview();
-});
-
-$routes->get('/tiliview', function() {
-    HelloWorldController::tiliview();
-});
-
-$routes->get('/userinfo', function() {
-    HelloWorldController::userinfo();
-});
-
-$routes->get('/userinfoedit', function() {
-    HelloWorldController::userinfoedit();
-});
-
+//ylimääräisiä sivuja
 $routes->get('/sandbox', function() {
     HelloWorldController::sandbox();
 });
