@@ -3,20 +3,20 @@
 class TiliController extends BaseController {
 
     public static function tilit() {
-        self::check_logged_in();
+        self::check_authorized('admin');
         $tilit = Tili::all();
         View::make('admin/tilit.html', array('tilit' => $tilit));
     }
 
     public static function uusitili() {
-        self::check_logged_in();
+        self::check_authorized('admin');
         View::make('admin/uusitili.html');
     }
 
     
     
     public static function store() {
-        self::check_logged_in();
+        self::check_authorized('admin');
         $params = $_POST;
         $tili = new Tili(array(
             'kayttaja' => $params['kayttaja'],

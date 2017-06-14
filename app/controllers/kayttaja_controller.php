@@ -3,7 +3,7 @@
 class KayttajaController extends BaseController {
 
     public static function index() {
-        self::check_logged_in();
+        self::check_authorized('admin');
         View::make('admin/index.html');
     }
 
@@ -34,18 +34,19 @@ class KayttajaController extends BaseController {
     }
 
     public static function kayttajat() {
-        self::check_logged_in();
+        self::check_authorized('admin');
+
         $kayttajat = Kayttaja::all();
         View::make('admin/kayttajat.html', array('kayttajat' => $kayttajat));
     }
 
     public static function uusikayttaja() {
-        self::check_logged_in();
+        self::check_authorized('admin');
         View::make('admin/newuser.html');
     }
 
     public static function store() {
-        self::check_logged_in();
+        self::check_authorized('admin');
         $params = $_POST;
         $attributes = array(
             'tunnus' => $params['tunnus'],
@@ -68,26 +69,29 @@ class KayttajaController extends BaseController {
     }
 
     public static function show($tunnus) {
-        self::check_logged_in();
+        self::check_authorized($tunnus);
+
         $kayttaja = Kayttaja::find($tunnus);
         $tilit = Tili::findfor($tunnus);
         View::make('kayttaja/index.html', array('kayttaja' => $kayttaja, 'tilit' => $tilit));
     }
 
     public static function tiedot($tunnus) {
-        self::check_logged_in();
+        self::check_authorized($tunnus);
+
         $kayttaja = Kayttaja::find($tunnus);
         View::make('kayttaja/tiedot.html', array('kayttaja' => $kayttaja));
     }
 
     public static function muokkaus($tunnus) {
-        self::check_logged_in();
+        self::check_authorized($tunnus);
+
         $kayttaja = Kayttaja::find($tunnus);
         View::make('kayttaja/muokkaa.html', array('kayttaja' => $kayttaja));
     }
 
     public static function paivita($tunnus) {
-        self::check_logged_in();
+        self::check_authorized($tunnus);
         $params = $_POST;
 
         $attributes = array(
@@ -111,13 +115,13 @@ class KayttajaController extends BaseController {
     }
 
     public static function poisto($tunnus) {
-        self::check_logged_in();
+        self::check_authorized('admin');
         $kayttaja = Kayttaja::find($tunnus);
         View::make('admin/poisto.html', array('kayttaja' => $kayttaja));
     }
 
     public static function poista($tunnus) {
-        self::check_logged_in();
+        self::check_authorized('admin');
         $kayttaja = new Kayttaja(array('tunnus' => $tunnus));
         $kayttaja->poista();
 
