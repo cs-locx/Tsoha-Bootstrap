@@ -85,9 +85,10 @@ class KayttajaController extends BaseController {
 
     public static function muokkaus($tunnus) {
         self::check_authorized($tunnus);
-
         $kayttaja = Kayttaja::find($tunnus);
-        View::make('kayttaja/muokkaa.html', array('kayttaja' => $kayttaja));
+        $tekija = self::get_user_logged_in();
+        
+        View::make('kayttaja/muokkaa.html', array('kayttaja' => $kayttaja, 'tekija' => $tekija));
     }
 
     public static function paivita($tunnus) {

@@ -22,10 +22,8 @@ class BaseController {
     public static function check_authorized($tunnus) {
         self::check_logged_in();
 
-        if ($_SESSION['kayttaja'] == $tunnus || $_SESSION['kayttaja'] == 'admin') {
-            
-        } else {
-            Redirect::to('/user/' . $_SESSION['kayttaja'], array('error' => 'Sinulla ei ole oikeuksia kyseiselle sivulle!'));
+        if ($_SESSION['kayttaja'] != $tunnus && $_SESSION['kayttaja'] != 'admin') {
+            Redirect::to('/user/' . $_SESSION['kayttaja'], array('message' => 'Sinulla ei ole oikeuksia kyseiselle sivulle!'));
         }
     }
 

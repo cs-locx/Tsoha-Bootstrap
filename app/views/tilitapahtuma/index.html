@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Tilin {{tili.tilinumero}} tilitapahtumat</h1>
+
+<p>
+    <a class="btn btn-primary" href="{{base_path}}/tili/{{tili.tilinumero}}/siirto">Tee tilisiirto</a>
+</p>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Ajankohta</th>
+            <th>Toinen tili?</th>
+            <th>Siirretty summa</th>
+            <th>Saldo</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tili in tilit %}
+        <tr><tr>
+            <td>{{tilitapahtuma.aika}}</td>
+            <td>{{tili.saldo}}</td>
+            <td>{{tilitapahtuma.summa}}</td>
+            <td>{{tilitapahtuma.saldo}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<p>
+    <a class="btn btn-default" href="{{base_path}}/user/{{kayttaja.tunnus}}">Takaisin</a>
+</p>
+
+
+{% endblock %}

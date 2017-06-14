@@ -13,9 +13,7 @@
         <tr>
             <th>Käyttäjätunnus</th>
             <th>Nimi</th>
-            <th>Puhelinnumero</th>
-            <th>Sähköposti</th>
-            <th>Katuosoite</th>
+            <th></th>
             <th></th>
             <th></th>
         </tr>
@@ -26,10 +24,8 @@
         <tr>
             <td>{{kayttaja.tunnus}}</td>
             <td>{{kayttaja.nimi}}</td>
-            <td>{{kayttaja.puhnro}}</td>
-            <td>{{kayttaja.email}}</td>
-            <td>{{kayttaja.osoite}}</td>
-            <th><a class="btn btn-default btn-sm" href="{{base_path}}/user/{{kayttaja.tunnus}}">Tarkastele profiilia</a></th>
+            <td><a class="btn btn-default btn-sm" href="{{base_path}}/user/{{kayttaja.tunnus}}">Tarkastele profiilia</a></td>
+            <th><a class="btn btn-default btn-sm" href="{{base_path}}/admin/muokkaa/{{kayttaja.tunnus}}">Muokkaa tietoja</a></th>
             <th><a class="btn btn-danger btn-sm" href="{{base_path}}/admin/poista/{{kayttaja.tunnus}}">Poista käyttäjä</a></th>
         </tr>
         {% endfor %}
