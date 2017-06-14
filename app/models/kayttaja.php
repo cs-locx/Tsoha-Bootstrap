@@ -2,7 +2,7 @@
 
 class Kayttaja extends BaseModel {
 
-    public $tunnus, $salasana, $nimi, $puhnro, $osoite, $email, $yllapitaja;
+    public $tunnus, $salasana, $nimi, $puhnro, $osoite, $email, $yllapitaja, $salasana1, $salasana2;
 
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -81,6 +81,11 @@ class Kayttaja extends BaseModel {
         }
         if (strlen($this->tunnus) < 3) {
             $errors[] = 'Käyttäjätunnus on oltava vähintään 3 merkkiä pitkä.';
+        } 
+        
+        $kayttaja = Kayttaja::find($this->tunnus);
+        if ($kayttaja->tunnus) {
+            $errors[] = 'Käyttäjätunnus on varattu!';
         }
         return $errors;
     }
@@ -98,6 +103,17 @@ class Kayttaja extends BaseModel {
         }
         return $errors;
     }
+    
+//    public function validate_uusi_salasana() {
+//        $errors = array();
+//        if (strlen($this->salasana) < 6) {
+//            $errors[] = 'Salasana on oltava vähintään 6 merkkiä pitkä.';
+//        }
+//        if (preg_match('~[0-9]~', $this->salasana) == false) {
+//            $errors[] = 'Salasanassa on oltava vähintään yksi numero.';
+//        }
+//        return $errors;
+//    }
 
     public static function tarkista($tunnus, $salasana) {
         $query = DB::connection()->prepare('SElECT * FROM Kayttaja WHERE tunnus = :tunnus AND salasana = :salasana LIMIT 1');

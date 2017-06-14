@@ -87,7 +87,7 @@ class KayttajaController extends BaseController {
         self::check_authorized($tunnus);
         $kayttaja = Kayttaja::find($tunnus);
         $tekija = self::get_user_logged_in();
-        
+
         View::make('kayttaja/muokkaa.html', array('kayttaja' => $kayttaja, 'tekija' => $tekija));
     }
 
@@ -102,6 +102,12 @@ class KayttajaController extends BaseController {
             'puhnro' => $params['puhnro'],
             'osoite' => $params['osoite'],
             'email' => $params['email']
+        );
+
+        $salasanat = array(
+            'salasana' => $params['salasana'],
+            'salasana1' => $params['uusisalasana1'],
+            'salasana2' => $params['uusisalasana2']
         );
 
         $kayttaja = new Kayttaja($attributes);
