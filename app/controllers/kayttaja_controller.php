@@ -104,20 +104,22 @@ class KayttajaController extends BaseController {
             'email' => $params['email']
         );
 
+        $kayttaja = new Kayttaja($attributes);
+        $errors = $kayttaja->errors();
+
         $salasanat = array(
             'salasana' => $params['salasana'],
             'salasana1' => $params['uusisalasana1'],
             'salasana2' => $params['uusisalasana2']
         );
-
-        $kayttaja = new Kayttaja($attributes);
-        $errors = $kayttaja->errors();
+        $salasanaerrors = KayttajaController::tarkista_salasana($tunnus, $salasanat);
+        $errors = array_merge($errors, $salasanaerrors);
 
         if (count($errors) > 0) {
-            View::make('kayttaja/muokkaa.html', array('errors' => $errors, 'attributes' => $attributes));
+            View::make('kayttaja/muokkaa.html', array('errors' => $errors, 'kayttaja' => $attributes));
         } else {
             $kayttaja->paivita();
-            Redirect::to('/user/' . $tunnus . '/tiedot', array('message' => 'Tietojen muokkaus onnistui!'));
+            Redirect::to('/user/' . $kayttaja->tunnus . '/tiedot', array('message' => 'Tietojen muokkaus onnistui!'));
         }
     }
 
@@ -133,6 +135,19 @@ class KayttajaController extends BaseController {
         $kayttaja->poista();
 
         Redirect::to('/admin/kayttajat', array('message' => 'Käyttäjän "' . $tunnus . '" poisto onnistui!'));
+    }
+
+    private static function tarkista_salasana($tunnus, $salasanat) {
+        $vanhasalasana = Kayttaja::find($tunnus)->salasana;
+        $errors = array();
+        // admin voi vaihtaa tietoja tietämättä käyttäjän salasanaa
+        if (!self::get_user_logged_in()->yllapitaja && $salasanat['salasana'] != $vanhasalasana) {
+            $errors[] = 'Tarkista salasanasi!';
+        }
+        if ($salasanat['uusisalasana1'] != $salasanat['uusisalasana2']) {
+            $errors[] = 'Uudet salasanasi eivät täsmänneet!';
+        }
+        return $errors;
     }
 
 }

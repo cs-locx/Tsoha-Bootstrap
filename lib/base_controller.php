@@ -26,5 +26,5 @@ class BaseController {
             Redirect::to('/user/' . $_SESSION['kayttaja'], array('message' => 'Sinulla ei ole oikeuksia kyseiselle sivulle!'));
         }
     }
-
+    
 }

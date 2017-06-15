@@ -49,7 +49,11 @@ $routes->post('/admin/tilit', function() {
 });
 
 $routes->get('/admin/uusitili', function() {
-    TiliController::uusitili();
+    TiliController::uusitili(null);
+});
+
+$routes->get('/admin/uusitili/:tunnus', function($tunnus) {
+    TiliController::uusitili($tunnus);
 });
 
 $routes->get('/user/:tunnus', function($tunnus) {

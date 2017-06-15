@@ -8,9 +8,9 @@ class TiliController extends BaseController {
         View::make('admin/tilit.html', array('tilit' => $tilit));
     }
 
-    public static function uusitili() {
+    public static function uusitili($tunnus) {
         self::check_authorized('admin');
-        View::make('admin/uusitili.html');
+        View::make('admin/uusitili.html', array('tunnus' => $tunnus));
     }
 
     
