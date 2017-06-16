@@ -86,9 +86,8 @@ class KayttajaController extends BaseController {
     public static function muokkaus($tunnus) {
         self::check_authorized($tunnus);
         $kayttaja = Kayttaja::find($tunnus);
-        $tekija = self::get_user_logged_in();
 
-        View::make('kayttaja/muokkaa.html', array('kayttaja' => $kayttaja, 'tekija' => $tekija));
+        View::make('kayttaja/muokkaa.html', array('kayttaja' => $kayttaja));
     }
 
     public static function paivita($tunnus) {
@@ -101,23 +100,20 @@ class KayttajaController extends BaseController {
             'nimi' => $params['nimi'],
             'puhnro' => $params['puhnro'],
             'osoite' => $params['osoite'],
-            'email' => $params['email']
+            'email' => $params['email'],
+            'uusisalasana1' => $params['uusisalasana1'],
+            'uusisalasana2' => $params['uusisalasana2']
         );
 
         $kayttaja = new Kayttaja($attributes);
-        $errors = $kayttaja->errors();
-
-        $salasanat = array(
-            'salasana' => $params['salasana'],
-            'salasana1' => $params['uusisalasana1'],
-            'salasana2' => $params['uusisalasana2']
-        );
-        $salasanaerrors = KayttajaController::tarkista_salasana($tunnus, $salasanat);
-        $errors = array_merge($errors, $salasanaerrors);
+        $errors = KayttajaController::validate_muokkaus($tunnus, $attributes);
+        
+//        Kint::dump($errors);
 
         if (count($errors) > 0) {
             View::make('kayttaja/muokkaa.html', array('errors' => $errors, 'kayttaja' => $attributes));
         } else {
+            $kayttaja->salasana = $attributes['uusisalasana1'];
             $kayttaja->paivita();
             Redirect::to('/user/' . $kayttaja->tunnus . '/tiedot', array('message' => 'Tietojen muokkaus onnistui!'));
         }
@@ -137,15 +133,28 @@ class KayttajaController extends BaseController {
         Redirect::to('/admin/kayttajat', array('message' => 'Käyttäjän "' . $tunnus . '" poisto onnistui!'));
     }
 
-    private static function tarkista_salasana($tunnus, $salasanat) {
-        $vanhasalasana = Kayttaja::find($tunnus)->salasana;
+    private static function validate_muokkaus($tunnus, array $attributes) {
         $errors = array();
+        $kayttaja = Kayttaja::find($tunnus);
+        $muokattu_kayttaja = new Kayttaja($attributes);
+
+        //jos käyttäjätunnusta vaihdetaan
+        if ($tunnus != $muokattu_kayttaja->tunnus) {
+            $errors = $muokattu_kayttaja->validate_tunnus();
+        }
         // admin voi vaihtaa tietoja tietämättä käyttäjän salasanaa
-        if (!self::get_user_logged_in()->yllapitaja && $salasanat['salasana'] != $vanhasalasana) {
+        if (!self::get_user_logged_in()->yllapitaja && $kayttaja->salasana != $muokattu_kayttaja->salasana) {
             $errors[] = 'Tarkista salasanasi!';
         }
-        if ($salasanat['uusisalasana1'] != $salasanat['uusisalasana2']) {
-            $errors[] = 'Uudet salasanasi eivät täsmänneet!';
+        //jos vaihdetaan salasanaa
+        if ($attributes['uusisalasana1'] != '' || $attributes['uusisalasana2'] != '') {
+            if ($attributes['uusisalasana1'] != $attributes['uusisalasana2']) {
+                $errors[] = 'Uudet salasanat eivät täsmänneet!';
+            } else {
+                $muokattu_kayttaja->salasana = $attributes['uusisalasana1'];
+                $salasana_errors = $muokattu_kayttaja->validate_salasana();
+                $errors = array_merge($errors, $salasana_errors);
+            }
         }
         return $errors;
     }

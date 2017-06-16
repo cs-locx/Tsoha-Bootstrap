@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Omat tiedot</h1>
-<!-- Tiedot tulee listana tähän -->
+
+{% if message is not null %}
+<div class="alert alert-success">
+    {{message}}
+</div>
+{% endif %}
+
 <ul>
     <li><strong>Oma nimi: </strong>{{kayttaja.nimi}}</li>
     <li><strong>Käyttäjätunnus: </strong>{{kayttaja.tunnus}}</li>

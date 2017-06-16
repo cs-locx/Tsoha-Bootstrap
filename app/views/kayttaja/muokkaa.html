@@ -2,21 +2,35 @@
 {% block content %}
 <h1>Muokkaa omia tietoja</h1>
 
-{% if not tekija.yllapitaja %}
+{% if not user_logged_in.yllapitaja %}
 <p>Ainoastaan ylläpitäjä pystyy muuttamaan käyttäjätunnustasi tai nimeäsi palvelussa. Ole yhteydessä konttoriin, jos haluat tehdä näitä muutoksia.</p>
 {% endif %}
 
-<form method="post" action="{{base_path}}/user/{{kayttaja.tunnus}}/tiedot">
+{% if errors %}
+<div class="alert alert-danger">
+    <ul>
+        {% for error in errors %}
+        <li>{{error}}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<form method="post" action="{{base_path}}/user/{{kayttaja.tunnus}}">
+    {% if user_logged_in.yllapitaja %}
     <div class="form-group">
         <label class="control-label">Käyttäjätunnus</label>
-        <input name="tunnus" class="form-control" type="text" value="{{kayttaja.tunnus}}" readonly>
+        <input name="tunnus" class="form-control" type="text" value="{{kayttaja.tunnus}}">
     </div>
-    {% if tekija.yllapitaja %}
     <div class="form-group">
         <label class="control-label">Käyttäjän nimi</label>
         <input type="text" name="nimi" class="form-control" value="{{kayttaja.nimi}}">
     </div>
     {% else %}
+    <div class="form-group">
+        <label class="control-label">Käyttäjätunnus</label>
+        <input name="tunnus" class="form-control" type="text" value="{{kayttaja.tunnus}}" readonly>
+    </div>
     <div class="form-group">
         <label class="control-label">Käyttäjän nimi</label>
         <input type="text" name="nimi" class="form-control" value="{{kayttaja.nimi}}" readonly>

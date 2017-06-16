@@ -2,7 +2,7 @@
 
 class Kayttaja extends BaseModel {
 
-    public $tunnus, $salasana, $nimi, $puhnro, $osoite, $email, $yllapitaja, $salasana1, $salasana2;
+    public $tunnus, $salasana, $nimi, $puhnro, $osoite, $email, $yllapitaja, $uusisalasana1, $uusisalasana2;
 
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -102,18 +102,7 @@ class Kayttaja extends BaseModel {
             $errors[] = 'Salasanassa on oltava vähintään yksi numero.';
         }
         return $errors;
-    }
-    
-//    public function validate_uusi_salasana() {
-//        $errors = array();
-//        if (strlen($this->salasana) < 6) {
-//            $errors[] = 'Salasana on oltava vähintään 6 merkkiä pitkä.';
-//        }
-//        if (preg_match('~[0-9]~', $this->salasana) == false) {
-//            $errors[] = 'Salasanassa on oltava vähintään yksi numero.';
-//        }
-//        return $errors;
-//    }
+    }    
 
     public static function tarkista($tunnus, $salasana) {
         $query = DB::connection()->prepare('SElECT * FROM Kayttaja WHERE tunnus = :tunnus AND salasana = :salasana LIMIT 1');
