@@ -84,7 +84,7 @@ class Kayttaja extends BaseModel {
         } 
         
         $kayttaja = Kayttaja::find($this->tunnus);
-        if ($kayttaja->tunnus) {
+        if (isset($kayttaja->tunnus)) {
             $errors[] = 'Käyttäjätunnus on varattu!';
         }
         return $errors;

@@ -17,20 +17,16 @@
 {% endif %}
 
 <form method="post" action="{{base_path}}/user/{{kayttaja.tunnus}}">
-    {% if user_logged_in.yllapitaja %}
     <div class="form-group">
         <label class="control-label">Käyttäjätunnus</label>
-        <input name="tunnus" class="form-control" type="text" value="{{kayttaja.tunnus}}">
+        <input name="tunnus" class="form-control" type="text" value="{{kayttaja.tunnus}}" readonly>
     </div>
+    {% if user_logged_in.yllapitaja %}
     <div class="form-group">
         <label class="control-label">Käyttäjän nimi</label>
         <input type="text" name="nimi" class="form-control" value="{{kayttaja.nimi}}">
     </div>
     {% else %}
-    <div class="form-group">
-        <label class="control-label">Käyttäjätunnus</label>
-        <input name="tunnus" class="form-control" type="text" value="{{kayttaja.tunnus}}" readonly>
-    </div>
     <div class="form-group">
         <label class="control-label">Käyttäjän nimi</label>
         <input type="text" name="nimi" class="form-control" value="{{kayttaja.nimi}}" readonly>
