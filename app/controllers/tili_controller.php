@@ -12,8 +12,6 @@ class TiliController extends BaseController {
         self::check_authorized('admin');
         View::make('admin/uusitili.html', array('tunnus' => $tunnus));
     }
-
-    
     
     public static function store() {
         self::check_authorized('admin');
@@ -30,4 +28,11 @@ class TiliController extends BaseController {
         Redirect::to('/admin/tilit' , array('message' => 'Tilin ' . $tili->tilinumero . ' luonti onnistui!'));
     }
 
+    public static function index($tilinumero) {
+        $tili = Tili::find($tilinumero);
+        self::check_authorized($tili->kayttaja);
+        
+        View::make('tili/index.html');
+    }
+    
 }

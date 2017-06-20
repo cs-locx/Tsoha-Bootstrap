@@ -66,13 +66,31 @@ class Tili extends BaseModel {
         $query->execute(array('saldo' => $this->saldo, 'siirtoraja' => $this->siirtoraja, 'kayttaja' => $this->kayttaja));
         $row = $query->fetch();
 
-//        Kint::trace();
-//        Kint::dump($row);
-
         $this->tilinumero = $row['tilinumero'];
-        
-        
+
         //Kutsutaan Siirto-luokan metodia save() lisätäksemme alkusaldon tilitapahtumiin
     }
 
+    public function poista() {
+        $query = DB::connection()->prepare('DELETE FROM Tili WHERE tilinumero = :tilinumero');
+        $query->execute(array('tilinumero' => $this->tilinumero));
+    }
+
+    public static function poista_kayttajalta($tunnus) {
+        $query = DB::connection()->prepare('DELETE FROM Tili WHERE kayttaja = :kayttaja');
+        $query->execute(array('kayttaja' => $tunnus));
+    }
+    
+    //jos tili poistetaan käytöstä, omistajuus siirtyy adminille, jotta tilitapahtumat säilyvät
+    public function poista_kaytosta() {
+        $query = DB::connection()->prepare('UPDATE Tili '
+                . 'SET kayttaja = admin WHERE tilinumero = :tilinumero');
+        $query->execute(array('tilinumero' => $this->tilinumero));
+    }
+    
+    public static function poista_kaytosta_kayttajalta($tunnus) {
+        $query = DB::connection()->prepare('UPDATE Tili '
+                . 'SET kayttaja = admin WHERE kayttaja = :kayttaja');
+        $query->execute(array('kayttaja' => $tunnus));
+    }
 }

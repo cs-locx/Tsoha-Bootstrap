@@ -28,7 +28,7 @@
             <td>{{tili.kayttaja}}</td>
             <td>{{tili.saldo}}</td>
             <td>{{tili.siirtoraja}}</td>
-            <th><a class="btn btn-default btn-sm" href="#">Tarkastele tilitapahtumia</a></th>
+            <th><a class="btn btn-default btn-sm" href="{{base_path}}/tili/{{tili.tilinumero}}">Tarkastele tilitapahtumia</a></th>
             <th><a class="btn btn-danger btn-sm" href="#">Poista tili</a></th>
         </tr>
         {% endfor %}

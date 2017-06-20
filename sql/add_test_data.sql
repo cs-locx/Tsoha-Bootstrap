@@ -13,17 +13,20 @@ VALUES (2000, 100, 'oskajoha');
 INSERT INTO Tili (saldo, siirtoraja, kayttaja) 
 VALUES (1000, 100, 'mikko');
  
-INSERT INTO Siirto (aika, summa)   
-VALUES (NOW(), 20);
-
-INSERT INTO Tilitapahtuma (tili, siirto, tyyppi)
-VALUES (1, 1, 'Debet');
-
-INSERT INTO Tilitapahtuma (tili, siirto, tyyppi)
-VALUES (2, 1, 'Kredit');
+INSERT INTO Tiliiirto (aika, summa, lahtotili, kohdetili)   
+VALUES (NOW(), 20, 1, 2);
 
 UPDATE Tili
 SET saldo = saldo - 20 WHERE tilinumero = 1;
 
 UPDATE Tili
 SET saldo = saldo + 20 WHERE tilinumero = 2;
+
+INSERT INTO Tiliiirto (aika, summa, lahtotili, kohdetili)   
+VALUES (NOW(), 100, 1, 2);
+
+UPDATE Tili
+SET saldo = saldo - 100 WHERE tilinumero = 1;
+
+UPDATE Tili
+SET saldo = saldo + 100 WHERE tilinumero = 2;
