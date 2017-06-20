@@ -25,13 +25,3 @@ CREATE TABLE Tilisiirto (
     FOREIGN KEY (lahtotili) REFERENCES Tili (tilinumero),
     FOREIGN KEY (kohdetili) REFERENCES Tili (tilinumero)
 );
-
-CREATE TABLE Tilitapahtuma ( 
-    tili integer NOT NULL,
-    siirto integer NOT NULL,
-    tyyppi text NOT NULL,
-    FOREIGN KEY (tili) REFERENCES Tili (tilinumero),
-    FOREIGN KEY (siirto) REFERENCES Siirto (id),
-    PRIMARY KEY (tili, siirto)
-);
-

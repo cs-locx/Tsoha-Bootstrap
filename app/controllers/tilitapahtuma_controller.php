@@ -3,7 +3,8 @@
 class TilitapahtumaController extends BaseController {
 
     public function show($tilinumero) {
-        View::make('tili/index.html', array('tilinumero' => $tilinumero));
+        $tilitapahtumat = Tilitapahtuma::hae_tilitapahtumat($tilinumero);
+        View::make('tilitapahtuma/index.html', array('tilitapahtumat' => $tilitapahtumat));
     }
     
 }

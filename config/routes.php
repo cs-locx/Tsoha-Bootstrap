@@ -76,6 +76,10 @@ $routes->post('/user/poista', function($tunnus) {
     KayttajaController::paivita($tunnus);
 });
 
+$routes->get('/tili/:tilinumero', function($tilinumero) {
+    TilitapahtumaController::show($tilinumero);
+});
+
 //ylimääräisiä sivuja
 $routes->get('/sandbox', function() {
     HelloWorldController::sandbox();

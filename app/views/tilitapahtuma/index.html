@@ -10,7 +10,7 @@
     <thead>
         <tr>
             <th>Ajankohta</th>
-            <th>Toinen tili?</th>
+            <th>Vastapuolen tili</th>
             <th>Siirretty summa</th>
             <th>Saldo</th>
         </tr>
@@ -21,7 +21,8 @@
             <td>{{tilitapahtuma.aika}}</td>
             <td>{{tili.saldo}}</td>
             <td>{{tilitapahtuma.summa}}</td>
-            <td>{{tilitapahtuma.saldo}}</td>
+            <td></td>
+<!--            <td>{{tilitapahtuma.saldo}}</td>-->
         </tr>
         {% endfor %}
     </tbody>

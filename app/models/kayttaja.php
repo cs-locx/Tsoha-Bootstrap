@@ -68,6 +68,7 @@ class Kayttaja extends BaseModel {
     }
 
     public function poista() {
+        Tili::poista_kaytosta_kayttajalta($this->tunnus);
         $query = DB::connection()->prepare('DELETE FROM Kayttaja '
                 . 'WHERE tunnus = :tunnus');
 
