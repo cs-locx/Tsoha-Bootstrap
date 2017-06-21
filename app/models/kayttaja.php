@@ -82,8 +82,8 @@ class Kayttaja extends BaseModel {
         }
         if (strlen($this->tunnus) < 3) {
             $errors[] = 'Käyttäjätunnus on oltava vähintään 3 merkkiä pitkä.';
-        } 
-        
+        }
+
         $kayttaja = Kayttaja::find($this->tunnus);
         if (isset($kayttaja->tunnus)) {
             $errors[] = 'Käyttäjätunnus on varattu!';
@@ -103,7 +103,17 @@ class Kayttaja extends BaseModel {
             $errors[] = 'Salasanassa on oltava vähintään yksi numero.';
         }
         return $errors;
-    }    
+    }
+    
+    public function validate_uusi_salasana() {
+        $errors = array();
+        if (isset($this->uusisalasana1) || isset($this->uusisalasana2)) {
+            if ($this->uusisalasana1 != $this->uusisalasana2) {
+                $errors[] = 'Uudet salasanat eivät täsmänneet!';
+            }
+        }
+        return $errors;
+    }
 
     public static function tarkista($tunnus, $salasana) {
         $query = DB::connection()->prepare('SElECT * FROM Kayttaja WHERE tunnus = :tunnus AND salasana = :salasana LIMIT 1');
@@ -115,6 +125,33 @@ class Kayttaja extends BaseModel {
         } else {
             return null;
         }
+    }
+
+    public function validate_muokkaus($attributes) {
+        $errors = array();
+        $muokattu_kayttaja = new Kayttaja($attributes);
+
+        //jos käyttäjätunnusta vaihdetaan
+        if ($this->tunnus != $muokattu_kayttaja->tunnus) {
+            $errors = $muokattu_kayttaja->validate_tunnus();
+        }
+        // admin voi vaihtaa tietoja tietämättä käyttäjän salasanaa
+        if (!self::get_user_logged_in()->yllapitaja) {
+            if ($this->salasana != $muokattu_kayttaja->salasana) {
+                $errors[] = 'Tarkista salasanasi!';
+            }
+        }
+        //jos vaihdetaan salasanaa
+        if ($attributes['uusisalasana1'] != '' || $attributes['uusisalasana2'] != '') {
+            if ($attributes['uusisalasana1'] != $attributes['uusisalasana2']) {
+                $errors[] = 'Uudet salasanat eivät täsmänneet!';
+            } else {
+                $muokattu_kayttaja->salasana = $attributes['uusisalasana1'];
+                $salasana_errors = $muokattu_kayttaja->validate_salasana();
+                $errors = array_merge($errors, $salasana_errors);
+            }
+        }
+        return $errors;
     }
 
 }

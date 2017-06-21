@@ -40,7 +40,7 @@
 <p>
     <a class="btn btn-primary" href="{{base_path}}/user/{{kayttaja.tunnus}}/tiedot">Omat tiedot</a>
     {% if user_logged_in.yllapitaja %}
-    <a class="btn btn-primary" href="{{base_path}}/admin/uusitili/{{kayttaja.tunnus}}"> Lisää tili</a>
+    <a class="btn btn-success" href="{{base_path}}/admin/uusitili/{{kayttaja.tunnus}}"> Lisää tili</a>
     {% endif %}
 </p>
 {% endblock %}

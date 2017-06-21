@@ -106,7 +106,7 @@ class KayttajaController extends BaseController {
         );
 
         $kayttaja = new Kayttaja($attributes);
-        $errors = KayttajaController::validate_muokkaus($tunnus, $attributes);
+        $errors =  $kayttaja::validate_muokkaus($attributes);
         
 //        Kint::dump($errors);
 
@@ -133,30 +133,8 @@ class KayttajaController extends BaseController {
         Redirect::to('/admin/kayttajat', array('message' => 'Käyttäjän "' . $tunnus . '" poisto onnistui!'));
     }
 
-    private static function validate_muokkaus($tunnus, array $attributes) {
-        $errors = array();
-        $kayttaja = Kayttaja::find($tunnus);
-        $muokattu_kayttaja = new Kayttaja($attributes);
 
-        //jos käyttäjätunnusta vaihdetaan
-        if ($tunnus != $muokattu_kayttaja->tunnus) {
-            $errors = $muokattu_kayttaja->validate_tunnus();
-        }
-        // admin voi vaihtaa tietoja tietämättä käyttäjän salasanaa
-        if (!self::get_user_logged_in()->yllapitaja && $kayttaja->salasana != $muokattu_kayttaja->salasana) {
-            $errors[] = 'Tarkista salasanasi!';
-        }
-        //jos vaihdetaan salasanaa
-        if ($attributes['uusisalasana1'] != '' || $attributes['uusisalasana2'] != '') {
-            if ($attributes['uusisalasana1'] != $attributes['uusisalasana2']) {
-                $errors[] = 'Uudet salasanat eivät täsmänneet!';
-            } else {
-                $muokattu_kayttaja->salasana = $attributes['uusisalasana1'];
-                $salasana_errors = $muokattu_kayttaja->validate_salasana();
-                $errors = array_merge($errors, $salasana_errors);
-            }
-        }
-        return $errors;
-    }
 
+    
+    
 }
