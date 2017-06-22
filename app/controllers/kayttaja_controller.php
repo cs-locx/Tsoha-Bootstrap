@@ -100,20 +100,17 @@ class KayttajaController extends BaseController {
             'nimi' => $params['nimi'],
             'puhnro' => $params['puhnro'],
             'osoite' => $params['osoite'],
-            'email' => $params['email'],
-            'uusisalasana1' => $params['uusisalasana1'],
-            'uusisalasana2' => $params['uusisalasana2']
+            'email' => $params['email']
         );
 
-        $kayttaja = new Kayttaja($attributes);
-        $errors =  $kayttaja::validate_muokkaus($attributes);
-        
+        $kayttaja = New Kayttaja($attributes);
+        $errors = $kayttaja->validate_salasana();
+
 //        Kint::dump($errors);
 
         if (count($errors) > 0) {
             View::make('kayttaja/muokkaa.html', array('errors' => $errors, 'kayttaja' => $attributes));
         } else {
-            $kayttaja->salasana = $attributes['uusisalasana1'];
             $kayttaja->paivita();
             Redirect::to('/user/' . $kayttaja->tunnus . '/tiedot', array('message' => 'Tietojen muokkaus onnistui!'));
         }
@@ -133,8 +130,4 @@ class KayttajaController extends BaseController {
         Redirect::to('/admin/kayttajat', array('message' => 'Käyttäjän "' . $tunnus . '" poisto onnistui!'));
     }
 
-
-
-    
-    
 }

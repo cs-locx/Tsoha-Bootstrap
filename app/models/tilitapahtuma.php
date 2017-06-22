@@ -25,7 +25,7 @@ class Tilitapahtuma extends BaseModel {
     }
 
     public static function hae_siirrot($tilinumero) {
-        $query = DB::connection()->prepare('SELECT * FROM Siirto '
+        $query = DB::connection()->prepare('SELECT * FROM Tilisiirto '
                 . 'WHERE lahtotili = :tilinumero OR kohdetili = :tilinumero');
         $query->execute(array('tilinumero' => $tilinumero));
         $rows = $query->fetchAll();
@@ -55,6 +55,7 @@ class Tilitapahtuma extends BaseModel {
                 'vastatili' => $vastatili
             ));
         }
+        return $tilitapahtumat;
     }
 
     public function save() {

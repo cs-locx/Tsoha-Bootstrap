@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Lista tilisiirroista</h1>
+
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Aika</th>
+            <th>Summa</th>
+            <th>Lähtötili</th>
+            <th>Kohdetili</th>
+            <th>Viesti</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for siirto in siirrot %}
+        <tr>
+            <td>{{siirto.aika}}</td>
+            <td>{{siirto.summa}}</td>
+            <td>{{siirto.lahtotili}}</td>
+            <th>{{siirto.kohdetili}}</th>
+            <th>{{siirto.viesti}}</th>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a class="btn btn-default" href="{{base_path}}/admin">Palaa etusivulle</a>
+{% endblock %}

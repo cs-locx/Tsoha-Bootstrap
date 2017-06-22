@@ -19,9 +19,10 @@ CREATE TABLE Tili (
 CREATE TABLE Tilisiirto (
     id SERIAL PRIMARY KEY,
     aika timestamp NOT NULL,  
-    summa integer NOT NULL,
+    summa decimal(12,2) NOT NULL,
     lahtotili integer NOT NULL,
-    kohdetili integer NOT NULL
+    kohdetili integer NOT NULL,
+    viesti text
     FOREIGN KEY (lahtotili) REFERENCES Tili (tilinumero),
     FOREIGN KEY (kohdetili) REFERENCES Tili (tilinumero)
 );

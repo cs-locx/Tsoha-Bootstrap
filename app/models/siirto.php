@@ -2,7 +2,7 @@
 
 class Siirto extends BaseModel {
 
-    public $id, $aika, $summa, $lahtotili, $kohdetili;
+    public $id, $aika, $summa, $lahtotili, $kohdetili, $viesti;
 
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -28,13 +28,13 @@ class Siirto extends BaseModel {
     }
 
     public static function etsi_kaikki() {
-        $query = DB::connection()->prepare('SELECT * FROM Siirto');
+        $query = DB::connection()->prepare('SELECT * FROM Tilisiirto');
         $query->execute();
         $rows = $query->fetchAll();
         $siirrot = array();
 
         foreach ($rows as $row) {
-            $siirrot[] = new Tili(array(
+            $siirrot[] = new Siirto(array(
                 'id' => $row['id'],
                 'aika' => $row['aika'],
                 'summa' => $row['summa'],

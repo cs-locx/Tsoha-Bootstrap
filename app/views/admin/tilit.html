@@ -9,6 +9,7 @@
 </div>
 {% endif %}
 
+<h3>Käytössä olevat tilit</h3>
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
@@ -20,16 +21,37 @@
             <th></th>
         </tr>
     </thead>
-
     <tbody>
-        {% for tili in tilit %}
+        {% for tili in kaytossa %}
         <tr>
             <td>{{tili.tilinumero}}</td>
             <td>{{tili.kayttaja}}</td>
             <td>{{tili.saldo}}</td>
             <td>{{tili.siirtoraja}}</td>
             <th><a class="btn btn-default btn-sm" href="{{base_path}}/tili/{{tili.tilinumero}}">Tarkastele tilitapahtumia</a></th>
-            <th><a class="btn btn-danger btn-sm" href="#">Poista tili</a></th>
+            <th><a class="btn btn-danger btn-sm" href="{{base_path}}/admin/poistatili/{{tili.tilinumero}}">Poista käytöstä</a></th>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3>Käytöstä poistetut tilit</h3>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Tilinumero</th>
+            <th>Saldo</th>
+            <th>Siirtoraja</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tili in deaktivoidut %}
+        <tr>
+            <td>{{tili.tilinumero}}</td>
+            <td>{{tili.saldo}}</td>
+            <td>{{tili.siirtoraja}}</td>
+            <th><a class="btn btn-default btn-sm" href="{{base_path}}/tili/{{tili.tilinumero}}">Tarkastele tilitapahtumia</a></th>
         </tr>
         {% endfor %}
     </tbody>

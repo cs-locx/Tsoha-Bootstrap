@@ -56,6 +56,18 @@ $routes->get('/admin/uusitili/:tunnus', function($tunnus) {
     TiliController::uusitili($tunnus);
 });
 
+$routes->get('/admin/poistatili/:tilinumero', function($tilinumero) {
+    TiliController::poisto($tilinumero);
+});
+
+$routes->post('/admin/poistatili/:tilinumero', function($tunnus) {
+    TiliController::poista_kaytosta($tunnus);
+});
+
+$routes->get('/admin/tilisiirrot', function() {
+    TilitapahtumaController::siirrot();
+});
+
 $routes->get('/user/:tunnus', function($tunnus) {
     KayttajaController::show($tunnus);
 });
@@ -78,6 +90,10 @@ $routes->post('/user/poista', function($tunnus) {
 
 $routes->get('/tili/:tilinumero', function($tilinumero) {
     TilitapahtumaController::show($tilinumero);
+});
+
+$routes->get('/tili/:tilinumero/siirto', function($tilinumero) {
+    TilitapahtumaController::siirto($tilinumero);
 });
 
 //ylimääräisiä sivuja

@@ -16,20 +16,24 @@
         </tr>
     </thead>
     <tbody>
-        {% for tili in tilit %}
+        {% for tilitapahtuma in tilitapahtumat %}
         <tr><tr>
             <td>{{tilitapahtuma.aika}}</td>
-            <td>{{tili.saldo}}</td>
-            <td>{{tilitapahtuma.summa}}</td>
+            <td>{{tilitapahtuma.vastatili}}</td>
+            {% if tilitapahtuma.summa < 0 %}
+            <td><label class="label label-danger">{{tilitapahtuma.summa}}</label></td>
+            {% else %}
+            <td><label class="label label-success">{{tilitapahtuma.summa}}</label></td>
+            {% endif %}
             <td></td>
-<!--            <td>{{tilitapahtuma.saldo}}</td>-->
+            <!--            <td>{{tilitapahtuma.saldo}}</td>-->
         </tr>
         {% endfor %}
     </tbody>
 </table>
 
 <p>
-    <a class="btn btn-default" href="{{base_path}}/user/{{kayttaja.tunnus}}">Takaisin</a>
+    <a class="btn btn-default" href="{{base_path}}/user/{{tili.kayttaja}}">Takaisin</a>
 </p>
 
 

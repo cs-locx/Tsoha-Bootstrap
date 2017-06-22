@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+{% import "macros/forms.html" as forms %}
+
+<h1>Oletko varma, että haluat poistaa tilin {{tilinumero}} käytöstä?</h1>
+
+{{forms.destroy_button("#{base_path}/admin/poistatili/#{tilinumero}")}}
+<a href="{{base_path}}/admin/tilit" class="btn btn-default">Takaisin</a>
+
+{% endblock %}
