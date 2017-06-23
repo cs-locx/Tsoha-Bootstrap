@@ -118,29 +118,4 @@ class Kayttaja extends BaseModel {
             return null;
         }
     }
-
-//    public function validate_muokkaus($attributes) {
-//        $errors = array();
-//        $muokattu_kayttaja = new Kayttaja($attributes);
-//
-//        //jos käyttäjätunnusta vaihdetaan
-////        if ($this->tunnus != $muokattu_kayttaja->tunnus) {
-////            $errors = $muokattu_kayttaja->validate_tunnus();
-////        }
-//        if ($this->salasana != $muokattu_kayttaja->salasana) {
-//            $errors[] = 'Tarkista salasanasi!';
-//        }
-//
-//        //jos vaihdetaan salasanaa
-//        if ($muokattu_kayttaja->uusisalasana1 != '' || $muokattu_kayttaja->uusisalasana2 != '') {
-//            if ($muokattu_kayttaja->uusisalasana1 != $muokattu_kayttaja->uusisalasana2) {
-//                $errors[] = 'Uudet salasanat eivät täsmänneet!';
-//            } else {
-//                $this->salasana = $attributes['uusisalasana1'];
-//                $salasana_errors = $this->validate_salasana();
-//                $errors = array_merge($errors, $salasana_errors);
-//            }
-//        }
-//        return $errors;
-//    }
 }

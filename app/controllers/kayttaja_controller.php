@@ -129,5 +129,4 @@ class KayttajaController extends BaseController {
 
         Redirect::to('/admin/kayttajat', array('message' => 'Käyttäjän "' . $tunnus . '" poisto onnistui!'));
     }
-
 }

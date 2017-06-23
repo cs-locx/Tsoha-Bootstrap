@@ -9,9 +9,9 @@ CREATE TABLE Kayttaja (
 );
  
 CREATE TABLE Tili ( 
-    tilinumero SERIAL PRIMARY KEY, 
-    saldo decimal(12,2) NOT NULL, 
+    tilinumero SERIAL PRIMARY KEY,
     siirtoraja integer, 
+    kaytossa boolean NOT NULL,
     kayttaja text NOT NULL, 
     FOREIGN KEY (kayttaja) REFERENCES Kayttaja (tunnus) 
 );
@@ -20,9 +20,9 @@ CREATE TABLE Tilisiirto (
     id SERIAL PRIMARY KEY,
     aika timestamp NOT NULL,  
     summa decimal(12,2) NOT NULL,
-    lahtotili integer NOT NULL,
+    lahtotili integer,
     kohdetili integer NOT NULL,
-    viesti text
+    viesti text,
     FOREIGN KEY (lahtotili) REFERENCES Tili (tilinumero),
     FOREIGN KEY (kohdetili) REFERENCES Tili (tilinumero)
 );

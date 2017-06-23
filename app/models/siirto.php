@@ -10,7 +10,7 @@ class Siirto extends BaseModel {
 
     public static function etsi($tilinumero) {
         $query = DB::connection()->prepare('SELECT * FROM Siirto '
-                . 'WHERE lahtotili = :tilinumero OR kohdetili = :tilinumero');
+            . 'WHERE lahtotili = :tilinumero OR kohdetili = :tilinumero');
         $query->execute(array('tilinumero' => $tilinumero));
         $rows = $query->fetchAll();
         $siirrot = array();
@@ -21,8 +21,9 @@ class Siirto extends BaseModel {
                 'aika' => $row['aika'],
                 'summa' => $row['summa'],
                 'lahtotili' => $row['lahtotili'],
-                'kohdetili' => $row['kohdetili']
-            ));
+                'kohdetili' => $row['kohdetili'],
+                'viesti' => $row['viesti']
+                ));
         }
         return $siirrot;
     }
@@ -39,15 +40,16 @@ class Siirto extends BaseModel {
                 'aika' => $row['aika'],
                 'summa' => $row['summa'],
                 'lahtotili' => $row['lahtotili'],
-                'kohdetili' => $row['kohdetili']
-            ));
+                'kohdetili' => $row['kohdetili'],
+                'viesti' => $row['viesti']
+                ));
         }
         return $siirrot;
     }
 
     public function tallenna() {
         $query = DB::connection()->prepare('INSERT INTO Siirto (aika, summa, lahtotili, kohdetili) VALUES (NOW(), :summa, :lahtotili, :kohdetili) RETURNING id');
-        $query->execute(array('summa' => $this->summa, 'lahtotili' => $this->lahtotili, 'kohdetili' => $this->kohdetili));
+        $query->execute(array('summa' => $this->summa, 'lahtotili' => $this->lahtotili, 'kohdetili' => $this->kohdetili, 'viesti' => $this->viesti));
         $row = $query->fetch();
 
         $this->id = $row['id'];
