@@ -30,6 +30,8 @@ class TiliController extends BaseController {
             View::make('admin/uusitili.html', array('errors' => $errors, 'tunnus' => $tili->kayttaja));
         } else {
             $tili->save();
+            $tilisiirto = new Siirto(array('kohdetili' => $tili->tilinumero, 'summa' => $params['saldo'], 'viesti' => 'Tili avattu saldolla ' . $params['saldo'] . '€'));
+            $tilisiirto->tallenna();
             Redirect::to('/admin/tilit', array('message' => 'Tilin ' . $tili->tilinumero . ' luonti onnistui!'));
         }
     }

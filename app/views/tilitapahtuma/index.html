@@ -3,6 +3,12 @@
 
 <h1>Tilin {{tili.tilinumero}} tilitapahtumat</h1>
 
+{% if message is not null %}
+<div class="alert alert-success">
+    {{message}}
+</div>
+{% endif %}
+
 <p>
     <a class="btn btn-primary" href="{{base_path}}/tili/{{tili.tilinumero}}/siirto">Tee tilisiirto</a>
 </p>
@@ -12,7 +18,7 @@
             <th>Ajankohta</th>
             <th>Vastapuolen tili</th>
             <th>Siirretty summa</th>
-            <th>Saldo</th>
+            <th>Viesti</th>
         </tr>
     </thead>
     <tbody>
@@ -25,8 +31,7 @@
             {% else %}
             <td><label class="label label-success">{{tilitapahtuma.summa}}</label></td>
             {% endif %}
-            <td></td>
-            <!--            <td>{{tilitapahtuma.saldo}}</td>-->
+            <td>{{tilitapahtuma.viesti}}</td>
         </tr>
         {% endfor %}
     </tbody>

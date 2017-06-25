@@ -6,14 +6,14 @@ class Siirto extends BaseModel {
 
     public function __construct($attributes) {
         parent::__construct($attributes);
-        $this->validators = array('validate_summa', 'validate_kohdetili', 'validate_viesti');
+        $this->validators = array('validate_kohdetili', 'validate_summa', 'validate_viesti');
     }
 
     public static function etsi($id) {
-        $query = DB::connection()->prepare('SELECT * FROM Siirto WHERE id = :id');
+        $query = DB::connection()->prepare('SELECT * FROM Tilisiirto WHERE id = :id');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
-        
+
         if ($row) {
             $siirto = new Siirto(array(
                 'id' => $row['id'],
@@ -22,15 +22,15 @@ class Siirto extends BaseModel {
                 'lahtotili' => $row['lahtotili'],
                 'kohdetili' => $row['kohdetili'],
                 'viesti' => $row['viesti']
-                ));
+            ));
             return $siirto;
-        } 
+        }
         return null;
     }
 
     public static function etsi_tililta($tilinumero) {
-        $query = DB::connection()->prepare('SELECT * FROM Siirto '
-            . 'WHERE lahtotili = :tilinumero OR kohdetili = :tilinumero');
+        $query = DB::connection()->prepare('SELECT * FROM Tilisiirto '
+                . 'WHERE lahtotili = :tilinumero OR kohdetili = :tilinumero');
         $query->execute(array('tilinumero' => $tilinumero));
         $rows = $query->fetchAll();
         $siirrot = array();
@@ -43,7 +43,7 @@ class Siirto extends BaseModel {
                 'lahtotili' => $row['lahtotili'],
                 'kohdetili' => $row['kohdetili'],
                 'viesti' => $row['viesti']
-                ));
+            ));
         }
         return $siirrot;
     }
@@ -62,7 +62,7 @@ class Siirto extends BaseModel {
                 'lahtotili' => $row['lahtotili'],
                 'kohdetili' => $row['kohdetili'],
                 'viesti' => $row['viesti']
-                ));
+            ));
         }
         return $siirrot;
     }
@@ -90,33 +90,42 @@ class Siirto extends BaseModel {
 
     public function validate_summa() {
         $tili = Tili::find($this->lahtotili);
-        $kohdetili = Tili::find($this->kohdetili);
         $errors = array();
 
         if (($tili->saldo - $this->summa) < 0) {
             $errors[] = "Tilillä ei ole tarpeeksi katetta!";
         }
-        if (($kohdetili->saldo + $this->summa) > 9999999999) {
-            $errors[] = 'Vastapuolen tilille ei mahdu näin iso summa!';
-        }       
         if ($this->summa < 0) {
-            $errors[] = "Et voi lähettää negatiivista summaa!";   
+            $errors[] = "Et voi lähettää negatiivista summaa!";
         }
         if ($this->summa > 9999999999) {
             $errors[] = 'Et voi siirtää näin isoa summaa!';
         }
         if ($this->summa == 0 || $this->summa == null) {
-            $errors[] = 'Et voi lähettää tyhjää tilisiirtoa.';
+            $errors[] = 'Et voi lähettää tyhjää tilisiirtoa!';
+        }
+        if ($this->kohdetili != null && $this->kohdetili != "") {
+            $vastatili = Tili::find($this->kohdetili);
+            if (isset($vastatili)) {
+                if (($vastatili->saldo + $this->summa) > 9999999999) {
+                    $errors[] = 'Vastapuolen tilille ei mahdu näin iso summa!';
+                }
+            }
         }
         return $errors;
     }
 
     public function validate_kohdetili() {
-        $tili = Tili::find($this->kohdetili);
         $errors = array();
 
-        if ($tili == null) {
-            $errors[] = 'Kohdetiliä ei ole olemassa, tarkista tilinumero!';
+
+        if ($this->kohdetili == null || $this->kohdetili == "") {
+            $errors[] = 'Kohdetiliä ei voi jättää tyhjäksi!';
+        } else {
+            $tili = Tili::find($this->kohdetili);
+            if ($tili == null || $tili == "") {
+                $errors[] = 'Kohdetiliä ei ole olemassa, tarkista tilinumero!';
+            }
         }
         if ($this->lahtotili == $this->kohdetili) {
             $errors[] = 'Et voi siirtää rahaa tililtä itselleen!';
@@ -127,9 +136,10 @@ class Siirto extends BaseModel {
     public function validate_viesti() {
         $errors = array();
 
-        if(strlen($this->viesti) > 80) {
+        if (strlen($this->viesti) > 80) {
             $errors[] = 'Viesti saa olla maksimissaan 80 merkkiä pitkä.';
         }
         return $errors;
     }
+
 }

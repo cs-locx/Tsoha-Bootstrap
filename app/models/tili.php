@@ -173,7 +173,7 @@ class Tili extends BaseModel {
         $tilitapahtumat = Tilitapahtuma::hae_tilitapahtumat($tilinumero);
         $saldo = 0;
         foreach ($tilitapahtumat as $tilitapahtuma) {
-            $saldo += $tilitapahtuma['summa'];
+            $saldo += $tilitapahtuma->summa;
         }
         return $saldo;
     }
