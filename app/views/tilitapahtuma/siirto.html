@@ -6,15 +6,15 @@
 <form method="post" action="{{base_path}}/tili/{{tili.tilinumero}}">
     <div class="form-group">
         <label class="control-label">Summa</label>
-        <input name="summa" class="form-control" type="text">
+        <input type="text" name="summa" class="form-control" value="{{attributes.summa}}">
     </div>
     <div class="form-group">
         <label class="control-label">Kohdetili</label>
-        <input type="text" name="kohdetili" class="form-control">
+        <input type="text" name="kohdetili" class="form-control" value="{{attributes.kohdetili">
     </div>
     <div class="form-group">
         <label class="control-label">Viesti</label>
-        <textarea name="viesti" class="form-control"></textarea>
+        <textarea name="viesti" class="form-control">{{attributes.viesti}}</textarea>
     </div>
 
 </form>

@@ -18,16 +18,17 @@ class Tili extends BaseModel {
         foreach ($rows as $row) {
             $tilit[] = new Tili(array(
                 'tilinumero' => $row['tilinumero'],
-                'saldo' => $row['saldo'],
+                'saldo' => self::laske_saldo($row['tilinumero']),
                 'siirtoraja' => $row['siirtoraja'],
                 'kayttaja' => $row['kayttaja'],
+                'kaytossa' => $row['kaytossa']
             ));
         }
         return $tilit;
     }
     
     public static function kaytossa() {
-        $query = DB::connection()->prepare('SELECT * FROM Tili WHERE NOT kayttaja = \'admin\'');
+        $query = DB::connection()->prepare('SELECT * FROM Tili WHERE kaytossa = true');
         $query->execute();
         $rows = $query->fetchAll();
         $tilit = array();
@@ -35,16 +36,17 @@ class Tili extends BaseModel {
         foreach ($rows as $row) {
             $tilit[] = new Tili(array(
                 'tilinumero' => $row['tilinumero'],
-                'saldo' => $row['saldo'],
+                'saldo' => self::laske_saldo($row['tilinumero']),
                 'siirtoraja' => $row['siirtoraja'],
                 'kayttaja' => $row['kayttaja'],
+                'kaytossa' => $row['kaytossa']
             ));
         }
         return $tilit;
     }
     
     public static function deaktivoidut() {
-        $query = DB::connection()->prepare('SELECT * FROM Tili WHERE kayttaja = \'admin\'');
+        $query = DB::connection()->prepare('SELECT * FROM Tili WHERE kaytossa = false');
         $query->execute();
         $rows = $query->fetchAll();
         $tilit = array();
@@ -52,9 +54,10 @@ class Tili extends BaseModel {
         foreach ($rows as $row) {
             $tilit[] = new Tili(array(
                 'tilinumero' => $row['tilinumero'],
-                'saldo' => $row['saldo'],
+                'saldo' => self::laske_saldo($row['tilinumero']),
                 'siirtoraja' => $row['siirtoraja'],
                 'kayttaja' => $row['kayttaja'],
+                'kaytossa' => $row['kaytossa']
             ));
         }
         return $tilit;
@@ -68,9 +71,10 @@ class Tili extends BaseModel {
         if ($row) {
             $tili = new Tili(array(
                 'tilinumero' => $row['tilinumero'],
-                'saldo' => $row['saldo'],
+                'saldo' => self::laske_saldo($row['tilinumero']),
                 'siirtoraja' => $row['siirtoraja'],
                 'kayttaja' => $row['kayttaja'],
+                'kaytossa' => $row['kaytossa']
             ));
 
             return $tili;
@@ -88,17 +92,18 @@ class Tili extends BaseModel {
         foreach ($rows as $row) {
             $tilit[] = new Tili(array(
                 'tilinumero' => $row['tilinumero'],
-                'saldo' => $row['saldo'],
+                'saldo' => self::laske_saldo($row['tilinumero']),
                 'siirtoraja' => $row['siirtoraja'],
                 'kayttaja' => $row['kayttaja'],
+                'kaytossa' => $row['kaytossa']
             ));
         }
         return $tilit;
     }
 
     public function save() {
-        $query = DB::connection()->prepare('INSERT INTO Tili (saldo, siirtoraja, kayttaja) VALUES (:saldo, :siirtoraja, :kayttaja) RETURNING tilinumero');
-        $query->execute(array('saldo' => $this->saldo, 'siirtoraja' => $this->siirtoraja, 'kayttaja' => $this->kayttaja));
+        $query = DB::connection()->prepare('INSERT INTO Tili (siirtoraja, kayttaja, kaytossa) VALUES (:siirtoraja, :kayttaja, true) RETURNING tilinumero');
+        $query->execute(array('siirtoraja' => $this->siirtoraja, 'kayttaja' => $this->kayttaja));
         $row = $query->fetch();
 
         $this->tilinumero = $row['tilinumero'];
@@ -119,13 +124,13 @@ class Tili extends BaseModel {
     //jos tili poistetaan käytöstä, omistajuus siirtyy adminille, jotta tilitapahtumat säilyvät
     public function poista_kaytosta() {
         $query = DB::connection()->prepare('UPDATE Tili '
-                . 'SET kayttaja = \'admin\' WHERE tilinumero = :tilinumero');
+                . 'SET kaytossa = false WHERE tilinumero = :tilinumero');
         $query->execute(array('tilinumero' => $this->tilinumero));
     }
 
     public static function poista_kaytosta_kayttajalta($tunnus) {
         $query = DB::connection()->prepare('UPDATE Tili '
-                . 'SET kayttaja = \'admin\' WHERE kayttaja = :kayttaja');
+                . 'SET kaytossa = false WHERE kayttaja = :kayttaja');
         $query->execute(array('kayttaja' => $tunnus));
     }
 
@@ -164,4 +169,12 @@ class Tili extends BaseModel {
         return $errors;
     }
 
+    public static function laske_saldo($tilinumero) {
+        $tilitapahtumat = Tilitapahtuma::hae_tilitapahtumat($tilinumero);
+        $saldo = 0;
+        foreach ($tilitapahtumat as $tilitapahtuma) {
+            $saldo += $tilitapahtuma['summa'];
+        }
+        return $saldo;
+    }
 }

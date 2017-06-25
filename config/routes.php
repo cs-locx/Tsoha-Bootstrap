@@ -96,6 +96,10 @@ $routes->get('/tili/:tilinumero/siirto', function($tilinumero) {
     TilitapahtumaController::siirto($tilinumero);
 });
 
+$routes->post('/tili/:tilinumero', function($tilinumero) {
+    TilisiirtoController::tallenna($tilinumero);
+});
+
 //ylimääräisiä sivuja
 $routes->get('/sandbox', function() {
     HelloWorldController::sandbox();

@@ -7,26 +7,20 @@ VALUES ('oskajoha', 'Oskari Johansson', '12345', 'keksitty.email@nan.com', 'bana
 INSERT INTO Kayttaja (tunnus, nimi, puhnro, email, salasana, osoite, yllapitaja)
 VALUES ('mikko', 'Mikko Mallikas', '54321', 'toinen.email@nan.com', 'omena1', 'Mysteeritie 125', false);
 
-INSERT INTO Tili (saldo, siirtoraja, kayttaja)
-VALUES (2000, 100, 'oskajoha');
+INSERT INTO Tili (siirtoraja, kayttaja, kaytossa)
+VALUES (200, 'oskajoha', true);
 
-INSERT INTO Tili (saldo, siirtoraja, kayttaja) 
-VALUES (1000, 100, 'mikko');
+INSERT INTO Tilisiirto (aika, summa, kohdetili, viesti)   
+VALUES (NOW(), 2000, 1, 'Tili avattu saldolla 2000,00€');
+
+INSERT INTO Tili (siirtoraja, kayttaja, kaytossa) 
+VALUES (100, 'mikko', true);
  
-INSERT INTO Tiliiirto (aika, summa, lahtotili, kohdetili)   
-VALUES (NOW(), 20, 1, 2);
+INSERT INTO Tilisiirto (aika, summa, kohdetili, viesti)   
+VALUES (NOW(), 1000, 2, 'Tili avattu saldolla 1000,00€');
 
-UPDATE Tili
-SET saldo = saldo - 20 WHERE tilinumero = 1;
+INSERT INTO Tilisiirto (aika, summa, lahtotili, kohdetili, viesti)   
+VALUES (NOW(), 20, 1, 2, 'Laina Mikolle');
 
-UPDATE Tili
-SET saldo = saldo + 20 WHERE tilinumero = 2;
-
-INSERT INTO Tiliiirto (aika, summa, lahtotili, kohdetili)   
-VALUES (NOW(), 100, 1, 2);
-
-UPDATE Tili
-SET saldo = saldo - 100 WHERE tilinumero = 1;
-
-UPDATE Tili
-SET saldo = saldo + 100 WHERE tilinumero = 2;
+INSERT INTO Tilisiirto (aika, summa, lahtotili, kohdetili, viesti)   
+VALUES (NOW(), 30, 2, 1, 'Laina takaisin korkoineen Oskarille');

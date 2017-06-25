@@ -55,7 +55,7 @@ class KayttajaController extends BaseController {
             'puhnro' => $params['puhnro'],
             'osoite' => $params['osoite'],
             'email' => $params['email']
-        );
+            );
         $kayttaja = new Kayttaja($attributes);
         $errors = $kayttaja->errors();
 
@@ -101,7 +101,7 @@ class KayttajaController extends BaseController {
             'puhnro' => $params['puhnro'],
             'osoite' => $params['osoite'],
             'email' => $params['email']
-        );
+            );
 
         $kayttaja = New Kayttaja($attributes);
         $errors = $kayttaja->validate_salasana();
